@@ -13,5 +13,13 @@ module.exports = {
   },
   parserOptions: {
     parser: 'babel-eslint'
-  }
+  },
+  plugins: [
+    // 此插件用来识别.html 和 .vue文件中的js代码
+    'html',
+    // standard风格的依赖包
+    'standard',
+    // standard风格的依赖包
+    'promise'
+  ],
 }
