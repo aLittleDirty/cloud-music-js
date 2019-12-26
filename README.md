@@ -1,24 +1,22 @@
 # cloud-music-js
 
-## Project setup
-```
-npm install
-```
+## src目录结构如下
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+└── src
+    ├── App.vue      # 根组件
+    ├── app.js        # 根组件的渲染数据
+    ├── main.js      # Vue文件入口
+    ├── api         # 请求后端数据的接口
+    ├── assets          # 静态资源文件
+    ├── components         # 子组件
+    │   ├── billboard
+    │   ├── header
+    │   ├── lyric
+    │   ├── musicList
+    │   └── musicPlayer
+    ├── filter           # 格式化公用函数
+    ├── i18n            # 不同国家语言
+    ├── model          # 实体类
+    ├── router          # 路由
+    ├── store          # 组件之间共享的数据存储仓库
+    └── util          # 工具函数
