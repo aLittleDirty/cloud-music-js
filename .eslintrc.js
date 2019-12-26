@@ -21,5 +21,5 @@ module.exports = {
     'standard',
     // standard风格的依赖包
     'promise'
-  ],
+  ]
 }
