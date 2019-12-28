@@ -1,24 +1,23 @@
 import { getHttp } from '../util/http-util'
 
 export function getBillboard () {
-  let url = '/toplist'
+  let path = '/toplist'
   let params = ''
-  return getHttp(url, params, (rawData) => {
+  let billBoardRawData = getHttp(path, params)
+  return billBoardRawData.then((result) => {
     let list = []
-    for (let i = 0; i < rawData.list.length; i++) {
-      list.push({ name: rawData.list[i].name, coverImg: rawData.list[i].coverImgUrl, id: rawData.list[i].id })
+    for (let i = 0; i < result.list.length; i++) {
+      list.push({ name: result.list[i].name, coverImg: result.list[i].coverImgUrl, id: result.list[i].id })
     }
     return list
-  }, (err) => {
-    console.log(err)
   })
 }
-
+/*
 export function getLyric (musicId) {
-  let url = '/lyric'
+  let path = '/lyric'
   let params = `id=${musicId}`
-  return getHttp(url, params, (rawData) => {
-    let lyric = rawData.lrc.lyric
+  return getHttp(path, params, (result) => {
+    let lyric = result.lrc.lyric
     return lyric
   }, (err) => {
     console.log(err)
@@ -48,53 +47,54 @@ function combineMusicMessage (p1, p2) {
     let musicUrls = result[1]
     let musicMessages = []
     for (let i = 0; i < musicLists.length; i++) {
-      let musicMessage = Object.assign(musicLists[i], { url: musicUrls[i] })
+      let musicMessage = Object.assign(musicLists[i], { path: musicUrls[i] })
       musicMessages.push(musicMessage)
     }
     return musicMessages
   })
 }
 
-function getMusicIds (billBoardId) {
-  let url = '/playlist/detail'
+function getMusicIds (billBoardId, callback) {
+  let path = '/playlist/detail'
   let params = `id=${billBoardId.toString()}`
-  return getHttp(url, params, (rawData) => {
+  getHttp(path, params, (result) => {
     let list = []
-    let dataList = rawData.playlist.tracks
+    let dataList = result.playlist.tracks
     for (let i = 0; i < dataList.length; i++) {
       list.push(dataList[i].id)
     }
-    return list
+    callback(list)
   }, (err) => {
     console.log(err)
   })
 }
 
 function getMusicURLs (musicIds) {
-  let url = '/song/url'
-  let params = `id=${musicIds.join(',')}`
-  return getHttp(url, params, (rawData) => {
-    let list = []
-    for (let i = 0; i < rawData.data.length; i++) {
-      list.push(rawData.data[i].url)
-    }
-    return list
-  }, (err) => {
-    console.log(err)
-  })
+  // let path = '/song/path'
+  // let params = `id=${musicIds.join(',')}`
+  // return getHttp(path, params, (result) => {
+  //   let list = []
+  //   for (let i = 0; i < result.data.length; i++) {
+  //     list.push(result.data[i].path)
+  //   }
+  //   return list
+  // }, (err) => {
+  //   console.log(err)
+  // })
 }
 
 function getMusicList (musicIds) {
-  let url = '/song/detail'
-  let params = `ids=${musicIds.join(',')}`
-  return getHttp(url, params, (rawData) => {
-    let list = []
-    let songs = rawData.songs
-    for (let i = 0; i < songs.length; i++) {
-      list.push({ name: songs[i].name, id: songs[i].id, author: songs[i].ar[0].name, albumName: songs[i].al.name, albumImg: songs[i].al.picUrl })
-    }
-    return list
-  }, (err) => {
-    console.log(err)
-  })
+  // let path = '/song/detail'
+  // let params = `ids=${musicIds.join(',')}`
+  // return getHttp(path, params, (result) => {
+  //   let list = []
+  //   let songs = result.songs
+  //   for (let i = 0; i < songs.length; i++) {
+  //     list.push({ name: songs[i].name, id: songs[i].id, author: songs[i].ar[0].name, albumName: songs[i].al.name, albumImg: songs[i].al.picUrl })
+  //   }
+  //   return list
+  // }, (err) => {
+  //   console.log(err)
+  // })
 }
+*/

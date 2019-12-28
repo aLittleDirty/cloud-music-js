@@ -1,6 +1,10 @@
 <template>
   <div class = "billboard">
-    <router-link :to = "{ path: '/musicList', params: { id: 1 }}">{{message}}</router-link>
+    <router-link class = "container" v-for="(item, index) in lists" :key="index"
+    :to = "{ path: '/musicList', params: {id: item.id }}">
+      <img :src="item.coverImg">
+      <p>{{item.name}}</p>
+    </router-link>
   </div>
 </template>
 <script src = "./billboard.js">
