@@ -1,9 +1,11 @@
 <template>
   <div class = "billboard">
-    <router-link class = "container" v-for="(item, index) in lists" :key="index"
-    :to = "{ path: '/musicList', params: {id: item.id }}">
+    <router-link v-for="(item, index) in lists" :key="index"
+    to="{ path: '/musicList'}">
+    <div class="container" @click="setRouteParams(item.id)">
       <img :src="item.coverImg">
       <p>{{item.name}}</p>
+    </div>
     </router-link>
   </div>
 </template>
