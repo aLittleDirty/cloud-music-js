@@ -1,5 +1,5 @@
 export class Album {
-  constructor (musicList, { albumName: name, albumImg: image } = {}) {
+  constructor ({ albumName: name, albumImg: image } = {}, musicList = []) {
     this.name = name
     this.image = image
     this.musicList = musicList
