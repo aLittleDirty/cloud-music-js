@@ -11,6 +11,11 @@ export default {
       musicList: []
     }
   },
+  methods: {
+    setMusicId (id) {
+      this.$store.commit('setMusicId', id)
+    }
+  },
   created () {
     let billboardId = this.$route.query.id
     getMusicMessage(billboardId).then((musicMessage) => {
@@ -21,6 +26,7 @@ export default {
         let singer = new Singer(message)
         this.musicList.push({
           name: music.name,
+          id: music.id,
           singer: singer.name,
           albumName: album.name,
           duration: 'loading...',

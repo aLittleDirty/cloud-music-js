@@ -8,7 +8,7 @@
         <th>专辑</th>
         <th>时长</th>
       </tr>
-      <tr v-for="(item, index) in musicList" :key="index">
+      <tr v-for="(item, index) in musicList" :key="index" @click="setMusicId(item.id)">
         <td>{{item.name}}</td>
         <td>{{item.singer}}</td>
         <td>{{item.albumName}}</td>
