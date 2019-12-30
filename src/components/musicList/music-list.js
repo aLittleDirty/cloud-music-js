@@ -12,7 +12,7 @@ export default {
     }
   },
   created () {
-    let billboardId = this.$route.params.id
+    let billboardId = this.$route.query.id
     getMusicMessage(billboardId).then((musicMessage) => {
       for (let i = 0; i < musicMessage.length; i++) {
         let message = musicMessage[i]

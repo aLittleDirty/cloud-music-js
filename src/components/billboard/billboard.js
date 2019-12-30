@@ -7,17 +7,6 @@ export default {
       lists: []
     }
   },
-  methods: {
-    setRouteParams (billboardId) {
-      this.$router.push({
-        path: '/musicList',
-        name: 'musicList',
-        params: {
-          id: billboardId
-        }
-      })
-    }
-  },
   created () {
     getBillboard().then((billboardList) => {
       for (let i = 0; i < billboardList.length; i++) {
