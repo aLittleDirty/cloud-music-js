@@ -1,7 +1,7 @@
 <template>
   <div class="music-list">
     {{message}}
-    <!-- <table>
+    <table>
       <tr>
         <th>音乐标题</th>
         <th>歌手</th>
@@ -14,7 +14,7 @@
         <td>{{item.albumName}}</td>
         <td>{{item.duration}}</td>
       </tr>
-    </table> -->
+    </table>
   </div>
 </template>
 <script src = "./music-list.js"></script>

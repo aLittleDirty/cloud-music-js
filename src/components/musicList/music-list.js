@@ -19,24 +19,27 @@ export default {
         let music = new Music(message)
         let album = new Album(message)
         let singer = new Singer(message)
-        let audio = new Audio(music.url)
-        let duration = 'loading...'
-        // audio.oncanplay异步加载了audio的资源
-        audio.oncanplay = () => {
-          if (audio.duration) {
-            duration = formatSeconds(audio.duration)
-          } else {
-            duration = '-- : --'
-          }
-        }
         this.musicList.push({
           name: music.name,
           singer: singer.name,
           albumName: album.name,
-          duration: duration
+          duration: 'loading...',
+          musicUrl: music.url
         })
       }
+      for (let i = 0; i < this.musicList.length; i++) {
+        let url = this.musicList[i].musicUrl
+        let audio = new Audio(url)
+        let _this = this
+        // audio.oncanplay异步加载了audio.duration
+        audio.oncanplay = function () {
+          if (audio.duration) {
+            _this.musicList[i].duration = formatSeconds(audio.duration)
+          } else {
+            _this.musicList[i].duration = '-- : --'
+          }
+        }
+      }
     })
-    console.log(this.musicList)
   }
 }
