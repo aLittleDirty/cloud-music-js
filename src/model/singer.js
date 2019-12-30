@@ -1,5 +1,5 @@
 export class Singer {
-  constructor ({ author: name } = {}) {
+  constructor ({ authorName: name } = {}) {
     this.name = name
     this.musics = []
     this.albums = []
