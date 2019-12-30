@@ -60,9 +60,12 @@ function getMusicIds (billBoardId) {
   })
 }
 
-function getMusicURLs (musicIds) {
+export function getMusicURLs (musicIds) {
   let path = '/song/url'
-  let params = `id=${musicIds.join(',')}`
+  if (Array.isArray(musicIds)) {
+    musicIds = musicIds.join(',')
+  }
+  let params = `id=${musicIds}`
   let rawMusicUrls = getHttp(path, params)
   return rawMusicUrls.then((result) => {
     let list = []
@@ -74,9 +77,12 @@ function getMusicURLs (musicIds) {
   })
 }
 
-function getMusicList (musicIds) {
+export function getMusicList (musicIds) {
   let path = '/song/detail'
-  let params = `ids=${musicIds.join(',')}`
+  if (Array.isArray(musicIds)) {
+    musicIds = musicIds.join(',')
+  }
+  let params = `id=${musicIds}`
   let rawMusicList = getHttp(path, params)
   return rawMusicList.then((result) => {
     let list = []
