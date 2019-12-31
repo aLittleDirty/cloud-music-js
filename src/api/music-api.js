@@ -82,7 +82,7 @@ export function getMusicList (musicIds) {
   if (Array.isArray(musicIds)) {
     musicIds = musicIds.join(',')
   }
-  let params = `id=${musicIds}`
+  let params = `ids=${musicIds}`
   let rawMusicList = getHttp(path, params)
   return rawMusicList.then((result) => {
     let list = []
