@@ -17,6 +17,7 @@
       <button @click="swap">暂停 / 播放</button>
       <button>下一首</button>
     </div>
+    <input type="range" value="5" max="10" min="0" @input="changeVolume"/>
   </div>
 </template>
 <script src = "./player.js"></script>

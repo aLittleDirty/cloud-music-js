@@ -43,6 +43,9 @@ export default {
       })
       this.playing = true
     },
+    changeVolume (event) {
+      this.$refs.audio.volume = event.target.value / 10
+    },
     swap () {
       this.playing = !this.playing
     },
