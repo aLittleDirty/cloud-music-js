@@ -22,6 +22,7 @@ export default {
       return getMusicMessage(musicIds)
     })
     musicMessage.then((messages) => {
+      console.table(messages)
       for (let i = 0; i < messages.length; i++) {
         let message = messages[i]
         let music = new Music(message)
@@ -38,7 +39,7 @@ export default {
       }
       // 处理每一首歌异步加载的duration, 并将音乐数据储存到localStorage中
       for (let i = 0; i < this.musicList.length; i++) {
-        let url = this.musicList[i].musicUrl
+        let url = this.musicList[i].url
         if (!url) {
           this.musicList[i].duration = '-- : --'
           continue
