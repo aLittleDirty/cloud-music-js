@@ -1,4 +1,3 @@
-// localStorage信息存储与获取，存入是一个object，取出是一个object，以musicId为key
 let storage = window.localStorage
 
 export function localSet (key, data) {

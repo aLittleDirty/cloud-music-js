@@ -4,7 +4,7 @@
     @timeupdate="setCurrentTime"
     @canplay="setDuration"
     autoplay
-    :src="musicUrl"></audio> 
+    :src="musicUrl"></audio>
     <router-link to = "/Lyric">
       <img :src="imageUrl"/>
     </router-link>
