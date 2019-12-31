@@ -25,29 +25,32 @@ export function getLyric (musicId) {
 }
 */
 
-export function getMusicMessage (billBoardId) {
-  let musicIds = getMusicIds(billBoardId)
-  return musicIds.then((result) => {
-    let musicLists = getMusicList(result)
-    let musicUrls = getMusicURLs(result)
-    return mergeMessage(musicLists, musicUrls)
-  })
+export function getMusicMessage (musicId) {
+  if (Array.isArray(musicId)) {
+    musicId = musicId.join(',')
+  }
+  let musicDetail = getMusicDetail(musicId)
+  let musicUrl = getMusicUrl(musicId)
+  return mergeMessage(musicDetail, musicUrl)
 }
 
 function mergeMessage (p1, p2) {
   return Promise.all([p1, p2]).then((result) => {
-    let musicLists = result[0]
-    let musicUrls = result[1]
+    let musicDetail = result[0]
+    let musicUrl = result[1]
     let musicMessages = []
-    for (let i in musicLists) {
-      let musicMessage = Object.assign(musicLists[i], musicUrls[i])
+    for (let i in musicDetail) {
+      let musicMessage = Object.assign(musicDetail[i], musicUrl[i])
       musicMessages.push(musicMessage)
+    }
+    if (musicMessages.length === 1) {
+      musicMessages = musicMessages[0]
     }
     return musicMessages
   })
 }
 
-function getMusicIds (billBoardId) {
+export function getMusicIds (billBoardId) {
   let path = '/playlist/detail'
   let params = `id=${billBoardId.toString()}`
   let rawMusicIds = getHttp(path, params)
@@ -60,12 +63,12 @@ function getMusicIds (billBoardId) {
   })
 }
 
-export function getMusicURLs (musicIds) {
+export function getMusicUrl (musicId) {
   let path = '/song/url'
-  if (Array.isArray(musicIds)) {
-    musicIds = musicIds.join(',')
+  if (Array.isArray(musicId)) {
+    musicId = musicId.join(',')
   }
-  let params = `id=${musicIds}`
+  let params = `id=${musicId}`
   let rawMusicUrls = getHttp(path, params)
   return rawMusicUrls.then((result) => {
     let list = []
@@ -77,12 +80,12 @@ export function getMusicURLs (musicIds) {
   })
 }
 
-export function getMusicList (musicIds) {
+export function getMusicDetail (musicId) {
   let path = '/song/detail'
-  if (Array.isArray(musicIds)) {
-    musicIds = musicIds.join(',')
+  if (Array.isArray(musicId)) {
+    musicId = musicId.join(',')
   }
-  let params = `ids=${musicIds}`
+  let params = `ids=${musicId}`
   let rawMusicList = getHttp(path, params)
   return rawMusicList.then((result) => {
     let list = []
