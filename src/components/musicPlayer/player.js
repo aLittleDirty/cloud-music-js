@@ -23,6 +23,9 @@ export default {
   watch: {
     musicId (newId, oldId) {
       this.refreshMusic(newId)
+    },
+    playing (newValue, oldValue) {
+      this.broadcast(newValue)
     }
   },
   methods: {
@@ -38,6 +41,13 @@ export default {
         this.singer = singer.name
         this.imageUrl = album.image
       })
+      this.playing = true
+    },
+    swap () {
+      this.playing = !this.playing
+    },
+    broadcast (isPlaying) {
+      isPlaying ? this.$refs.audio.play() : this.$refs.audio.pause()
     },
     setCurrentTime () {
       this.currentTime = formatSeconds(this.$refs.audio.currentTime)
