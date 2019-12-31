@@ -35,15 +35,15 @@ export default {
       }
       for (let i = 0; i < this.musicList.length; i++) {
         let url = this.musicList[i].musicUrl
+        if (!url) {
+          this.musicList[i].duration = '-- : --'
+          continue
+        }
         let audio = new Audio(url)
         let _this = this
         // audio.oncanplay异步加载了audio.duration
         audio.oncanplay = function () {
-          if (audio.duration) {
-            _this.musicList[i].duration = formatSeconds(audio.duration)
-          } else {
-            _this.musicList[i].duration = '-- : --'
-          }
+          _this.musicList[i].duration = formatSeconds(audio.duration)
         }
       }
     })
