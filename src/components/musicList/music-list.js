@@ -1,4 +1,4 @@
-import { getMusicMessage } from '../../api/music-api.js'
+import { getMusicMessage, getMusicIds } from '../../api/music-api.js'
 import { Music } from '../../model/music.js'
 import { Singer } from '../../model/singer.js'
 import { Album } from '../../model/album.js'
@@ -18,21 +18,25 @@ export default {
   },
   created () {
     let billboardId = this.$route.query.id
-    getMusicMessage(billboardId).then((musicMessage) => {
-      for (let i = 0; i < musicMessage.length; i++) {
-        let message = musicMessage[i]
+    let musicMessage = getMusicIds(billboardId).then((musicIds) => {
+      return getMusicMessage(musicIds)
+    })
+    musicMessage.then((messages) => {
+      for (let i = 0; i < messages.length; i++) {
+        let message = messages[i]
         let music = new Music(message)
         let album = new Album(message)
         let singer = new Singer(message)
         this.musicList.push({
           name: music.name,
           id: music.id,
+          url: music.url,
           singer: singer.name,
           albumName: album.name,
-          duration: 'loading...',
-          musicUrl: music.url
+          duration: 'loading...'
         })
       }
+      // 处理每一首歌异步加载的duration, 并将音乐数据储存到localStorage中
       for (let i = 0; i < this.musicList.length; i++) {
         let url = this.musicList[i].musicUrl
         if (!url) {
