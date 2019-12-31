@@ -1,4 +1,5 @@
 import { getHttp } from '../util/http-util'
+import { localGet } from '../util/respository'
 
 export function getBillboard () {
   let path = '/toplist'
@@ -26,8 +27,21 @@ export function getLyric (musicId) {
 */
 
 export function getMusicMessage (musicId) {
+  if (!Array.isArray(musicId) && localGet(musicId)) {
+    return localGet(musicId)
+  }
   if (Array.isArray(musicId)) {
-    musicId = musicId.join(',')
+    let dataList = []
+    for (let i = 0; i < musicId.length; i++) {
+      if (localGet(musicId[i])) {
+        dataList.push(localGet(musicId[i]))
+      }
+    }
+    if (musicId.length === dataList.length) {
+      return dataList
+    } else {
+      musicId = musicId.join(',')
+    }
   }
   let musicDetail = getMusicDetail(musicId)
   let musicUrl = getMusicUrl(musicId)
