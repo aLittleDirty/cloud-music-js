@@ -1,5 +1,5 @@
 import { getHttp } from '../util/http-util'
-import { localGet } from '../util/respository'
+import { localGet } from '../util/repository'
 
 export function getBillboard () {
   let path = '/toplist'
