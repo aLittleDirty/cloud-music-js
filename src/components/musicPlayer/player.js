@@ -22,7 +22,13 @@ export default {
   },
   watch: {
     musicId (newId, oldId) {
-      this.refreshMusic(newId)
+      this.playing = false
+      this.refreshMusic(newId).then(() => {
+        let _this = this
+        this.$refs.audio.oncanplay = function () {
+          _this.playing = true
+        }
+      })
     },
     playing (newValue, oldValue) {
       this.broadcast(newValue)
@@ -32,22 +38,26 @@ export default {
     refreshMusic (newId) {
       // 更新音乐信息
       let musicMessage = getMusicMessage(newId)
-      musicMessage.then((message) => {
+      return musicMessage.then((message) => {
         let music = new Music(message)
         let singer = new Singer(message)
         let album = new Album(message)
         this.musicName = music.name
+        // 异步加载新的musicUrl，并更新DOM元素
         this.musicUrl = music.url
         this.singer = singer.name
+        // 异步获取专辑封面图
         this.imageUrl = album.image
       })
-      this.playing = true
     },
     changeVolume (event) {
       this.$refs.audio.volume = event.target.value / 10
     },
     swap () {
       this.playing = !this.playing
+    },
+    setStatus (isPlay) {
+      this.playing = isPlay
     },
     broadcast (isPlaying) {
       isPlaying ? this.$refs.audio.play() : this.$refs.audio.pause()
@@ -62,6 +72,5 @@ export default {
   created () {
     let id = this.$store.state.musicId
     this.refreshMusic(id)
-    this.playing = false
   }
 }

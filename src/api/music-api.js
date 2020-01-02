@@ -1,5 +1,5 @@
 import { getHttp } from '../util/http-util'
-import { localGet } from '../util/repository'
+// import { localGet } from '../util/repository'
 
 export function getBillboard () {
   let path = '/toplist'
@@ -24,21 +24,25 @@ export function getBillboard () {
 // }
 
 export function getMusicMessage (musicId) {
-  if (!Array.isArray(musicId) && localGet(musicId)) {
-    return localGet(musicId)
-  }
+  // if (!Array.isArray(musicId) && localGet(musicId)) {
+  //   let a = localGet(musicId)
+  //   return new Promise(a)
+  // }
+  // if (Array.isArray(musicId)) {
+  //   let dataList = []
+  //   for (let i = 0; i < musicId.length; i++) {
+  //     if (localGet(musicId[i])) {
+  //       dataList.push(localGet(musicId[i]))
+  //     }
+  //   }
+  //   if (musicId.length === dataList.length) {
+  //     return dataList
+  //   } else {
+  //     musicId = musicId.join(',')
+  //   }
+  // }
   if (Array.isArray(musicId)) {
-    let dataList = []
-    for (let i = 0; i < musicId.length; i++) {
-      if (localGet(musicId[i])) {
-        dataList.push(localGet(musicId[i]))
-      }
-    }
-    if (musicId.length === dataList.length) {
-      return dataList
-    } else {
-      musicId = musicId.join(',')
-    }
+    musicId = musicId.join(',')
   }
   let musicDetail = getMusicDetail(musicId)
   let musicUrl = getMusicUrl(musicId)
