@@ -13,18 +13,15 @@ export function getBillboard () {
     return list
   })
 }
-/*
-export function getLyric (musicId) {
-  let path = '/lyric'
-  let params = `id=${musicId}`
-  return getHttp(path, params, (result) => {
-    let lyric = result.lrc.lyric
-    return lyric
-  }, (err) => {
-    console.log(err)
-  })
-}
-*/
+
+// export function getLyric (musicId) {
+//   let path = '/lyric'
+//   let params = `id=${musicId}`
+//   let lyric = getHttp(path, params)
+//   return lyric.then((result) => {
+//     return result.lrc.lyric
+//   })
+// }
 
 export function getMusicMessage (musicId) {
   if (!Array.isArray(musicId) && localGet(musicId)) {
