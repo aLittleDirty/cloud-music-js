@@ -62,5 +62,6 @@ export default {
   created () {
     let id = this.$store.state.musicId
     this.refreshMusic(id)
+    this.playing = false
   }
 }
