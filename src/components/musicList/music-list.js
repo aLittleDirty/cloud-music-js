@@ -3,7 +3,7 @@ import { Music } from '../../model/music.js'
 import { Singer } from '../../model/singer.js'
 import { Album } from '../../model/album.js'
 import { formatSeconds } from '../../util/second-format.js'
-import { localSet } from '../../util/respository.js'
+import { localSet } from '../../util/repository.js'
 export default {
   name: 'musicList',
   data () {
