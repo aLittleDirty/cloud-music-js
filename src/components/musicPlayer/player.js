@@ -25,10 +25,12 @@ export default {
     musicId (newId, oldId) {
       this.currentMusicId = newId
       this.playing = false
+      this.$store.commit('setPlaying', this.playing)
       this.refreshMusic(newId).then(() => {
         let _this = this
         this.$refs.audio.oncanplay = function () {
           _this.playing = true
+          this.$store.commit('setPlaying', this.playing)
         }
       })
     },
@@ -57,6 +59,7 @@ export default {
     },
     swap () {
       this.playing = !this.playing
+      this.$store.commit('setPlaying', this.playing)
     },
     next () {
       let musicList = this.$store.state.musicIds

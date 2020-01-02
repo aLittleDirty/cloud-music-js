@@ -1,5 +1,5 @@
-export class Lyric {
-  constructor (lyric) {
-    this.lyric = lyric
-  }
-}
+// export class Lyric {
+//   constructor (lyric) {
+//     this.lyric = lyric
+//   }
+// }

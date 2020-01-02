@@ -6,11 +6,15 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     musicId: 347230,
-    musicIds: []
+    musicIds: [],
+    playing: false
   },
   getters: {
     musicId (state) {
       return state.musicId
+    },
+    playing (state) {
+      return state.playing
     }
   },
   mutations: {
@@ -19,6 +23,9 @@ export default new Vuex.Store({
     },
     setMusicIds (state, newIds) {
       state.musicIds = newIds
+    },
+    setPlaying (state, newPlaying) {
+      state.playing = newPlaying
     }
   },
   actions: {
