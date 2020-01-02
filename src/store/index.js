@@ -5,7 +5,8 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    musicId: 347230
+    musicId: 347230,
+    musicIds: []
   },
   getters: {
     musicId (state) {
@@ -15,6 +16,9 @@ export default new Vuex.Store({
   mutations: {
     setMusicId (state, newId) {
       state.musicId = newId
+    },
+    setMusicIds (state, newIds) {
+      state.musicIds = newIds
     }
   },
   actions: {

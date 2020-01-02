@@ -14,7 +14,8 @@ export default {
       duration: '',
       imageUrl: '',
       playing: false,
-      musicUrl: ''
+      musicUrl: '',
+      currentMusicId: 0
     }
   },
   computed: {
@@ -22,6 +23,7 @@ export default {
   },
   watch: {
     musicId (newId, oldId) {
+      this.currentMusicId = newId
       this.playing = false
       this.refreshMusic(newId).then(() => {
         let _this = this
@@ -55,6 +57,20 @@ export default {
     },
     swap () {
       this.playing = !this.playing
+    },
+    next () {
+      let musicList = this.$store.state.musicIds
+      let index = musicList.findIndex(this.currentMusicId)
+      index++
+      let currentMusicId = musicList[index]
+      this.$store.commit('setMusicId', currentMusicId)
+    },
+    prev () {
+      let musicList = this.$store.state.musicIds
+      let index = musicList.findIndex(this.currentMusicId)
+      index--
+      let currentMusicId = musicList[index]
+      this.$store.commit('setMusicId', currentMusicId)
     },
     setStatus (isPlay) {
       this.playing = isPlay

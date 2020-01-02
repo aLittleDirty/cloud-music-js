@@ -20,6 +20,7 @@ export default {
   created () {
     let billboardId = this.$route.query.id
     let musicMessage = getMusicIds(billboardId).then((musicIds) => {
+      this.$store.commit('setMusicIds', musicIds)
       return getMusicMessage(musicIds)
     })
     musicMessage.then((messages) => {

@@ -12,9 +12,9 @@
       <p>{{currentTime}} / {{duration}}</p>
     </div>
     <div class="controlers">
-      <button>上一首</button>
+      <button @click="prev">上一首</button>
       <button @click="swap">暂停 / 播放</button>
-      <button>下一首</button>
+      <button @click="next">下一首</button>
     </div>
     <input type="range" value="5" max="10" min="0" @input="changeVolume"/>
   </div>
