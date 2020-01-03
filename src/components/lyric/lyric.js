@@ -3,6 +3,7 @@ import { Album } from '../../model/album.js'
 import { Music } from '../../model/music.js'
 import { Singer } from '../../model/singer.js'
 import Lyric from 'lyric-parser'
+import Bscroll from 'better-scroll'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -14,7 +15,8 @@ export default {
       musicName: '',
       singer: '',
       lyric: null,
-      currentLine: 0
+      currentLine: 0,
+      scroll: null
     }
   },
   computed: {
@@ -25,7 +27,6 @@ export default {
       this.changeLyric(newId)
     },
     playing (newPlaying, oldPlaying) {
-      console.log(newPlaying)
       newPlaying ? this.lyric.play() : this.lyric.stop()
     }
   },
@@ -40,22 +41,29 @@ export default {
         this.albumImg = album.image
         this.singer = singer.name
       })
-      getLyric(musicId).then((result) => {
+      return getLyric(musicId).then((result) => {
         this.lyric = new Lyric(result, this.handleLyric)
       })
     },
     handleLyric (obj) {
+      // 歌词高亮
       this.currentLine = obj.lineNum
+      // 歌词滚动
+      let wrapperHeight = this.$refs.wrapper.clientHeight
+      let contentHeight = this.$refs.content.scrollHeight
+      let contentScrollTop = this.$refs.content.scrollTop
+      let movement = contentScrollTop - wrapperHeight / 2
+      if (movement && (contentScrollTop + wrapperHeight < contentHeight)) {
+        this.scroll.scrollTo(0, movement, 1000)
+      }
     }
   },
   created () {
     let musicId = this.$store.state.musicId
-    this.changeLyric(musicId)
+    this.changeLyric(musicId).then(() => {
+      this.$nextTick(() => {
+        this.scroll = new Bscroll(this.$refs.wrapper, { scrollY: true })
+      })
+    })
   }
 }
-
-/*
-事情:
-2. 歌词滚动: toScroll接口滚动歌词(清楚滚动到哪一行)
-    歌词暂停和滚动由music-player中的playing控制，用vuex来管理吧
-*/
