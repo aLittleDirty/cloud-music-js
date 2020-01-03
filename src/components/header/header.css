@@ -1,0 +1,16 @@
+.header, a {
+  color: rgba(51, 51, 51, 1);
+  font-size: 18px;
+}
+
+.header {
+  margin: 10px;
+}
+
+.header::after {
+  display: block;
+  content: '';
+  height: 2px;
+  margin:2px;
+  background: rgba(193, 13, 12, 1)
+}
