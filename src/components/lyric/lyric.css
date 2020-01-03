@@ -1,0 +1,51 @@
+*{
+  color: rgba(51, 51, 51, 1)
+}
+
+.loading img{
+  width: 200px;
+  height: 200px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top:0;
+  bottom: 0;
+  margin:auto;
+}
+
+.loaded {
+  display: flex;
+  justify-content: space-around;
+}
+
+.albumImage {
+  width: 200px;
+  height: 200px;
+  border-radius: 200px;
+}
+
+.lyric-content {
+  width: 400px;
+  height: 550px;
+  padding: 20px;
+  border: 1px solid rgba(51, 51, 51, 1);
+  border-radius: 10px;
+  position: relative;
+}
+
+.lyric-content h1 {
+  font-size: 20px;
+}
+
+.wrapper {
+  width: 400px;
+  height: 450px;
+  position: absolute;
+  bottom: 0;
+  overflow: scroll;
+}
+
+.content li {
+  list-style: none;
+  line-height: 32px;
+}
