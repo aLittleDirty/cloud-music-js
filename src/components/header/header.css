@@ -1,6 +1,10 @@
 .header, a {
   color: rgba(51, 51, 51, 1);
   font-size: 18px;
+  text-decoration: none;
+}
+router-link-active {
+  text-decoration: none;
 }
 
 .header {
