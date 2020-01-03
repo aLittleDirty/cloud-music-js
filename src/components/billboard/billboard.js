@@ -4,7 +4,8 @@ export default {
   name: 'billboard',
   data () {
     return {
-      lists: []
+      lists: [],
+      loading: true
     }
   },
   created () {
@@ -13,6 +14,7 @@ export default {
         let billboard = new Billboard(billboardList[i])
         this.lists.push(billboard)
       }
+      this.loading = false
     })
   }
 }
