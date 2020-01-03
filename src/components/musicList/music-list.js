@@ -9,7 +9,8 @@ export default {
   data () {
     return {
       message: 'musicList',
-      musicList: []
+      musicList: [],
+      loading: true
     }
   },
   methods: {
@@ -55,6 +56,7 @@ export default {
           _this.musicList[i].duration = formatSeconds(audio.duration)
         }
       }
+      this.loading = false
     })
   }
 }
