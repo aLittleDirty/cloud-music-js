@@ -15,6 +15,4 @@
 </template>
 <script src = "./billboard.js">
 </script>
-<style scoped>
-@import './billboard.css'
-</style>
+<style scoped src="./billboard.css"></style>

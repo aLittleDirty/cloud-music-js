@@ -5,6 +5,4 @@
   </div>
 </template>
 <script src = "./header.js"></script>
-<style scoped>
-@import './header.css';
-</style>
+<style scoped src="./header.css"></style>
