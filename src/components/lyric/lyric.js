@@ -16,7 +16,8 @@ export default {
       singer: '',
       lyric: null,
       currentLine: 0,
-      scroll: null
+      scroll: null,
+      loading: true
     }
   },
   computed: {
@@ -61,6 +62,7 @@ export default {
   created () {
     let musicId = this.$store.state.musicId
     this.changeLyric(musicId).then(() => {
+      this.loading = false
       this.$nextTick(() => {
         this.scroll = new Bscroll(this.$refs.wrapper, { scrollY: true })
       })
