@@ -1,7 +1,7 @@
 <template>
   <div class = "music-player">
     <audio ref="audio"
-      @timeupdate="setCurrentTime"
+      @timeupdate="setTimeUpdateFunc"
       @canplay="setDuration"
       :src="musicUrl">
     </audio>
@@ -11,7 +11,7 @@
       </router-link>
       <p>{{musicName}} - <span>{{singer}}</span></p>
       <p>{{currentTime}} / {{duration}}</p>
-      <input ref="progress" class="progress" type="range" />
+      <input ref="progress" class="progress" type="range" value="0" max="100" min="0"/>
     </div>
     <div class="controllers">
       <button class="prev" @click="prev">上一首</button>

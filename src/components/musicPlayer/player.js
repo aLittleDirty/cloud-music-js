@@ -85,18 +85,26 @@ export default {
     },
     setCurrentTime () {
       this.currentTime = formatSeconds(this.$refs.audio.currentTime)
-      // 设置滑动条的背景颜色
-      this.$refs.progress.style.backgroundSize = `${parseInt(this.$refs.audio.currentTime / this.$refs.audio.duration)}100%`
     },
     setDuration () {
       this.duration = formatSeconds(this.$refs.audio.duration)
+    },
+    setProgress () {
+      let currentTime = this.$refs.audio.currentTime
+      let duration = this.$refs.audio.duration
+      if (currentTime && duration) {
+        let result = (currentTime / duration).toFixed(2) * 100
+        this.$refs.progress.value = result
+        this.$refs.progress.style.backgroundSize = `${result}%100%`
+      }
+    },
+    setTimeUpdateFunc () {
+      this.setCurrentTime()
+      this.setProgress()
     }
   },
   created () {
     let id = this.$store.state.musicId
     this.refreshMusic(id)
-  },
-  mounted () {
-    this.$refs.progress.css('background-size', this.value + '%100%')
   }
 }
