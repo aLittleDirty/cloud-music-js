@@ -6,18 +6,21 @@
       :src="musicUrl">
     </audio>
     <div class="musicMessage">
-      <router-link to="/Lyric">
-        <img class="albumImage" :src="imageUrl"/>
+      <router-link class="albumImage" to="/Lyric">
+        <img :src="imageUrl"/>
       </router-link>
       <p>{{musicName}} - <span>{{singer}}</span></p>
       <p>{{currentTime}} / {{duration}}</p>
+      <input ref="progress" class="progress" type="range" />
     </div>
     <div class="controllers">
-      <button @click="prev">上一首</button>
-      <button @click="swap">暂停 / 播放</button>
-      <button @click="next">下一首</button>
+      <button class="prev" @click="prev">上一首</button>
+      <button :class="[{ onPlay: playing }, 'switch']" @click="swap">暂停 / 播放</button>
+      <button class="next" @click="next">下一首</button>
+      <button class="volume">音量
+        <input ref="volume" type="range" value="5" max="10" min="0" @input="changeVolume"/>
+      </button>
     </div>
-    <input class="volume" type="range" value="5" max="10" min="0" @input="changeVolume"/>
   </div>
 </template>
 <script src = "./player.js"></script>

@@ -56,6 +56,8 @@ export default {
     },
     changeVolume (event) {
       this.$refs.audio.volume = event.target.value / 10
+      // 设置滑动条的背景颜色
+      this.$refs.volume.style.backgroundSize = `${event.target.value * 10}%100%`
     },
     swap () {
       this.playing = !this.playing
@@ -83,6 +85,8 @@ export default {
     },
     setCurrentTime () {
       this.currentTime = formatSeconds(this.$refs.audio.currentTime)
+      // 设置滑动条的背景颜色
+      this.$refs.progress.style.backgroundSize = `${parseInt(this.$refs.audio.currentTime / this.$refs.audio.duration)}100%`
     },
     setDuration () {
       this.duration = formatSeconds(this.$refs.audio.duration)
@@ -91,5 +95,8 @@ export default {
   created () {
     let id = this.$store.state.musicId
     this.refreshMusic(id)
+  },
+  mounted () {
+    this.$refs.progress.css('background-size', this.value + '%100%')
   }
 }
