@@ -70,6 +70,9 @@ export default {
       let musicList = this.$store.state.musicIds
       let index = musicList.findIndex(this.currentMusicId)
       index++
+      if (index > musicList.length) {
+        return
+      }
       let currentMusicId = musicList[index]
       this.$store.commit('setMusicId', currentMusicId)
     },
@@ -77,6 +80,9 @@ export default {
       let musicList = this.$store.state.musicIds
       let index = musicList.findIndex(this.currentMusicId)
       index--
+      if (index < 0) {
+        return
+      }
       let currentMusicId = musicList[index]
       this.$store.commit('setMusicId', currentMusicId)
     },
