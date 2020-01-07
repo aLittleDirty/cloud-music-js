@@ -23,30 +23,24 @@ export function getLyric (musicId) {
   })
 }
 
+export function getMusicMessageList (musicIds) {
+  musicIds = musicIds.join(',')
+  let musicDetails = getMusicDetail(musicIds)
+  let musicUrls = getMusicUrl(musicIds)
+  return mergeMessage(musicDetails, musicUrls)
+}
+
 export function getMusicMessage (musicId) {
   // if (!Array.isArray(musicId) && localGet(musicId)) {
   //   let a = localGet(musicId)
   //   return new Promise(a)
   // }
-  // if (Array.isArray(musicId)) {
-  //   let dataList = []
-  //   for (let i = 0; i < musicId.length; i++) {
-  //     if (localGet(musicId[i])) {
-  //       dataList.push(localGet(musicId[i]))
-  //     }
-  //   }
-  //   if (musicId.length === dataList.length) {
-  //     return dataList
-  //   } else {
-  //     musicId = musicId.join(',')
-  //   }
-  // }
-  if (Array.isArray(musicId)) {
-    musicId = musicId.join(',')
-  }
+
   let musicDetail = getMusicDetail(musicId)
   let musicUrl = getMusicUrl(musicId)
-  return mergeMessage(musicDetail, musicUrl)
+  return mergeMessage(musicDetail, musicUrl).then((result) => {
+    return result[0]
+  })
 }
 
 function mergeMessage (p1, p2) {
@@ -57,9 +51,6 @@ function mergeMessage (p1, p2) {
     for (let i in musicDetail) {
       let musicMessage = Object.assign(musicDetail[i], musicUrl[i])
       musicMessages.push(musicMessage)
-    }
-    if (musicMessages.length === 1) {
-      musicMessages = musicMessages[0]
     }
     return musicMessages
   })

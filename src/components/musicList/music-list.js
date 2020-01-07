@@ -1,4 +1,4 @@
-import { getMusicMessage, getMusicIds } from '../../api/music-api.js'
+import { getMusicIds, getMusicMessageList } from '../../api/music-api.js'
 import { Music } from '../../model/music.js'
 import { Singer } from '../../model/singer.js'
 import { Album } from '../../model/album.js'
@@ -20,11 +20,11 @@ export default {
   },
   created () {
     let billboardId = this.$route.query.id
-    let musicMessage = getMusicIds(billboardId).then((musicIds) => {
+    let musicMessageList = getMusicIds(billboardId).then((musicIds) => {
       this.$store.commit('setMusicIds', musicIds)
-      return getMusicMessage(musicIds)
+      return getMusicMessageList(musicIds)
     })
-    musicMessage.then((messages) => {
+    musicMessageList.then((messages) => {
       for (let i = 0; i < messages.length; i++) {
         let message = messages[i]
         let music = new Music(message)
