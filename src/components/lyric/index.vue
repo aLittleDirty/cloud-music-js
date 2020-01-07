@@ -4,7 +4,9 @@
       <img src="../../assets/loading.png"/>
     </div>
     <section v-else class="loaded" key="loaded">
-      <img class="albumImage" :src="albumImg"/>
+      <div  class="albumImage">
+        <img :src="albumImg"/>
+      </div>
       <div class="lyric-content">
         <h1>{{musicName}}</h1>
         <p>专辑：{{albumName}} 歌手： {{singer}}</p>
