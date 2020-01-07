@@ -68,7 +68,9 @@ export default {
     },
     next () {
       let musicList = this.$store.state.musicIds
-      let index = musicList.findIndex(this.currentMusicId)
+      let index = musicList.findIndex((value) => {
+        return value === this.currentMusicId
+      })
       index++
       if (index > musicList.length) {
         return
@@ -78,7 +80,9 @@ export default {
     },
     prev () {
       let musicList = this.$store.state.musicIds
-      let index = musicList.findIndex(this.currentMusicId)
+      let index = musicList.findIndex((value) => {
+        return value === this.currentMusicId
+      })
       index--
       if (index < 0) {
         return
