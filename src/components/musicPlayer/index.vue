@@ -3,6 +3,7 @@
     <audio ref="audio"
       @timeupdate="setTimeUpdateFunc"
       @canplay="setDuration"
+      @ended="setStatus(false)"
       :src="musicUrl">
     </audio>
     <div class="musicMessage">
