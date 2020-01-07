@@ -33,7 +33,7 @@ export default {
         let _this = this
         this.$refs.audio.oncanplay = function () {
           _this.playing = true
-          this.$store.commit('setPlaying', this.playing)
+          _this.$store.commit('setPlaying', _this.playing)
         }
       })
     },
