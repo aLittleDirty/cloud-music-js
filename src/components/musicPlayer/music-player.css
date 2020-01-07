@@ -83,6 +83,10 @@
   background-image: url('../../assets/上一首.png');
 }
 
+.controllers .prev.disable {
+  opacity: 0.5;
+}
+
 .controllers .switch {
   width: 40px;
   height: 40px;
@@ -98,6 +102,10 @@
 
 .controllers .next {
   background-image: url('../../assets/下一首.png');
+}
+
+.controllers .next.disable {
+  opacity: 0.5;
 }
 
 .controllers .volume {

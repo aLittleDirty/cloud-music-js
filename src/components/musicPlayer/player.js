@@ -15,7 +15,9 @@ export default {
       imageUrl: '',
       playing: false,
       musicUrl: '',
-      currentMusicId: 0
+      currentMusicId: 0,
+      absenceNext: false,
+      absencePrev: false
     }
   },
   computed: {
@@ -25,6 +27,7 @@ export default {
     musicId (newId, oldId) {
       this.currentMusicId = newId
       this.playing = false
+      this.setControllerStyle()
       this.$store.commit('setPlaying', this.playing)
       this.refreshMusic(newId).then(() => {
         let _this = this
@@ -101,10 +104,30 @@ export default {
     setTimeUpdateFunc () {
       this.setCurrentTime()
       this.setProgress()
+    },
+    setControllerStyle () {
+      let musicList = this.$store.state.musicIds
+      if (musicList.length === 0 || !musicList.includes(this.currentMusicId)) {
+        this.absenceNext = true
+        this.absencePrev = true
+      } else {
+        let index = musicList.findIndex((value) => { return value === this.currentMusicId })
+        this.absencePrev = (index === 0)
+        this.absenceNext = (index === musicList.length)
+        // if (index === 0) {
+        //   this.absencePrev = true
+        // }
+        // if (index === musicList.length) {
+        //   this.absenceNext = true
+        // }
+      }
     }
   },
   created () {
     let id = this.$store.state.musicId
     this.refreshMusic(id)
+  },
+  mounted () {
+    this.setControllerStyle()
   }
 }
