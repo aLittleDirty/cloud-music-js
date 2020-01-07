@@ -17,9 +17,21 @@
 
 .loaded li {
   list-style: none;
-  margin: 20px;
-  border: 1px solid rgba(200,200,200,1)
+  margin: 10px;
+  position: relative;
 }
+
+.loaded li::before {
+  content: '';
+  display: block;
+  width: 208px;
+  height: 208px;
+  border: 2px outset rgba(200, 200, 200, 0.8);
+  position: absolute;
+  top: -6px;
+  left: -6px;
+}
+
 .billboardImg {
   width: 200px;
   height: 200px;
@@ -28,13 +40,10 @@
 .billboardName {
   font-size:14px;
   color: black;
-  text-indent: 15px;
+  text-indent: 8px;
 }
 
-a {
-  text-decoration: none;
+.billboardName:hover {
+  color: rgba(144, 0, 0, 1);
 }
 
-.router-link-active {
-  text-decoration: none;
-}
