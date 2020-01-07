@@ -49,3 +49,7 @@
   list-style: none;
   line-height: 32px;
 }
+
+.highlight {
+  color: rgba(144, 0, 0, 1)
+}

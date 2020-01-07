@@ -50,13 +50,13 @@ export default {
       // 歌词高亮
       this.currentLine = obj.lineNum
       // 歌词滚动
-      let wrapperHeight = this.$refs.wrapper.clientHeight
-      let contentHeight = this.$refs.content.scrollHeight
-      let contentScrollTop = this.$refs.content.scrollTop
-      let movement = contentScrollTop - wrapperHeight / 2
-      if (movement && (contentScrollTop + wrapperHeight < contentHeight)) {
-        this.scroll.scrollTo(0, movement, 1000)
-      }
+      // let wrapperHeight = this.$refs.wrapper.clientHeight
+      // let contentHeight = this.$refs.content.scrollHeight
+      // let contentScrollTop = this.$refs.content.scrollTop
+      // let movement = contentScrollTop - wrapperHeight / 2
+      // if (movement && (contentScrollTop + wrapperHeight < contentHeight)) {
+      //   this.scroll.scrollTo(0, movement, 1000)
+      // }
     }
   },
   created () {
