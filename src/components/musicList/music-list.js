@@ -36,7 +36,8 @@ export default {
           url: music.url,
           singer: singer.name,
           albumName: album.name,
-          duration: 'loading...'
+          duration: 'loading...',
+          absenceUrl: false
         })
         // 将音乐数据储存到localStorage中
         let key = message.id
@@ -47,6 +48,7 @@ export default {
         let url = this.musicList[i].url
         if (!url) {
           this.musicList[i].duration = '-- : --'
+          this.musicList[i].absenceUrl = true
           continue
         }
         let audio = new Audio(url)

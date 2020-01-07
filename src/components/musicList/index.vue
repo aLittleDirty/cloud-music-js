@@ -13,7 +13,7 @@
         </tr>
       </thead>
       <tbody class="table-item" >
-        <tr v-for="(item, index) in musicList" :key="index" @click="setMusicId(item.id)">
+        <tr v-for="(item, index) in musicList" :class="{ 'disable': item.absenceUrl }" :key="index" @click="!item.absenceUrl && setMusicId(item.id)">
           <td>{{item.name}}</td>
           <td>{{item.singer}}</td>
           <td>{{item.albumName}}</td>
