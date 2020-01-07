@@ -1,5 +1,7 @@
 *{
-  color: rgba(51, 51, 51, 1)
+  color: rgba(51, 51, 51, 1);
+  padding: 0;
+  margin: 0;
 }
 
 .loading img{
@@ -37,9 +39,15 @@
   font-size: 20px;
 }
 
+.lyric-content p {
+  margin: 10px 0;
+  font-size: 14px;
+  color: rgba(51, 51, 51, 0.8);
+}
+
 .wrapper {
   width: 400px;
-  height: 450px;
+  height: 500px;
   position: absolute;
   bottom: 0;
   overflow: scroll;
