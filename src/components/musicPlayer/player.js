@@ -101,9 +101,6 @@ export default {
       let currentMusicId = musicList[index]
       this.$store.commit('setMusicId', currentMusicId)
     },
-    setStatus (isPlay) {
-      this.playing = isPlay
-    },
     broadcast (isPlaying) {
       isPlaying ? this.$refs.audio.play() : this.$refs.audio.pause()
     },
