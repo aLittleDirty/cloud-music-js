@@ -2,7 +2,7 @@
   <div class = "music-player">
     <audio ref="audio"
       @timeupdate="updateTime"
-      @canplay="setDuration"
+      @canplay="initDuration"
       @ended="playing = false"
       :src="musicUrl">
     </audio>

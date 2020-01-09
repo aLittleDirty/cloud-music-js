@@ -31,7 +31,7 @@ export default {
       this.currentMusicId = newId
       this.playing = false
       this.currentTime = 0
-      this.setControllerStyle()
+      this.decoratePrevNext()
       this.$store.commit('setPlaying', this.playing)
       this.refreshMusic(newId).then(() => {
         let _this = this
@@ -42,10 +42,10 @@ export default {
       })
     },
     playing (newValue, oldValue) {
-      this.broadcast(newValue)
+      this.toPlay(newValue)
     },
     currentTime (newCurrentTime) {
-    // 设置播放进度条的滑块位置及进度条颜色
+    // 设置播放进度条的滑块位置及播放进度条颜色
       if (this.duration !== 0) {
         let result = (newCurrentTime / this.duration).toFixed(2) * 100
         this.$refs.progress.value = result
@@ -62,16 +62,14 @@ export default {
         let singer = new Singer(message)
         let album = new Album(message)
         this.musicName = music.name
-        // 异步加载新的musicUrl，并更新DOM元素
         this.musicUrl = music.url
         this.singer = singer.name
-        // 异步获取专辑封面图
         this.imageUrl = album.image
       })
     },
     changeVolume (event) {
+    // 改变音量大小，设置音量控制条样式
       this.$refs.audio.volume = event.target.value / 10
-      // 设置滑动条的背景颜色
       this.$refs.volume.style.backgroundSize = `${event.target.value * 10}%100%`
     },
     swap () {
@@ -102,7 +100,7 @@ export default {
       let currentMusicId = musicList[index]
       this.$store.commit('setMusicId', currentMusicId)
     },
-    broadcast (isPlaying) {
+    toPlay (isPlaying) {
       isPlaying ? this.$refs.audio.play() : this.$refs.audio.pause()
     },
     resetProgress (event) {
@@ -110,7 +108,7 @@ export default {
       this.currentTime = time
       this.$refs.audio.currentTime = time
     },
-    setControllerStyle () {
+    decoratePrevNext () {
       let musicList = this.$store.state.musicIds
       if (musicList.length === 0 || !musicList.includes(this.currentMusicId)) {
         this.absenceNext = true
@@ -124,7 +122,7 @@ export default {
     updateTime (event) {
       this.currentTime = event.target.currentTime
     },
-    setDuration (event) {
+    initDuration (event) {
       this.duration = event.target.duration
     }
   },
@@ -133,6 +131,6 @@ export default {
     this.refreshMusic(id)
   },
   mounted () {
-    this.setControllerStyle()
+    this.decoratePrevNext()
   }
 }
