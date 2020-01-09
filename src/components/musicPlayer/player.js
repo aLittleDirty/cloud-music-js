@@ -10,8 +10,8 @@ export default {
     return {
       musicName: '',
       singer: '',
-      currentTime: '00 : 00',
-      duration: '',
+      currentTime: 0,
+      duration: 0,
       imageUrl: '',
       playing: false,
       musicUrl: '',
@@ -19,6 +19,9 @@ export default {
       absenceNext: false,
       absencePrev: false
     }
+  },
+  filters: {
+    formatSeconds
   },
   computed: {
     ...mapGetters(['musicId'])
@@ -39,6 +42,14 @@ export default {
     },
     playing (newValue, oldValue) {
       this.broadcast(newValue)
+    },
+    currentTime (newCurrentTime) {
+    // 设置播放进度条的滑块位置及进度条颜色
+      if (this.duration !== 0) {
+        let result = (newCurrentTime / this.duration).toFixed(2) * 100
+        this.$refs.progress.value = result
+        this.$refs.progress.style.backgroundSize = `${result}%100%`
+      }
     }
   },
   methods: {
@@ -96,24 +107,10 @@ export default {
     broadcast (isPlaying) {
       isPlaying ? this.$refs.audio.play() : this.$refs.audio.pause()
     },
-    setCurrentTime () {
-      this.currentTime = formatSeconds(this.$refs.audio.currentTime)
-    },
-    setDuration () {
-      this.duration = formatSeconds(this.$refs.audio.duration)
-    },
-    setProgress () {
-      let currentTime = this.$refs.audio.currentTime
-      let duration = this.$refs.audio.duration
-      if (currentTime && duration) {
-        let result = (currentTime / duration).toFixed(2) * 100
-        this.$refs.progress.value = result
-        this.$refs.progress.style.backgroundSize = `${result}%100%`
-      }
-    },
-    setTimeUpdateFunc () {
-      this.setCurrentTime()
-      this.setProgress()
+    resetProgress (event) {
+      let time = (event.target.value / 100) * this.duration
+      this.currentTime = time
+      this.$refs.audio.currentTime = time
     },
     setControllerStyle () {
       let musicList = this.$store.state.musicIds
@@ -124,13 +121,13 @@ export default {
         let index = musicList.findIndex((value) => { return value === this.currentMusicId })
         this.absencePrev = (index === 0)
         this.absenceNext = (index === musicList.length)
-        // if (index === 0) {
-        //   this.absencePrev = true
-        // }
-        // if (index === musicList.length) {
-        //   this.absenceNext = true
-        // }
       }
+    },
+    updateTime (event) {
+      this.currentTime = event.target.currentTime
+    },
+    setDuration () {
+      this.duration = this.$refs.audio.duration
     }
   },
   created () {
