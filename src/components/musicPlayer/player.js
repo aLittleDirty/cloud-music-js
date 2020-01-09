@@ -30,6 +30,7 @@ export default {
     musicId (newId, oldId) {
       this.currentMusicId = newId
       this.playing = false
+      this.currentTime = 0
       this.setControllerStyle()
       this.$store.commit('setPlaying', this.playing)
       this.refreshMusic(newId).then(() => {
