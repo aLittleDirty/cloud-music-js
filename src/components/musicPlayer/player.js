@@ -124,8 +124,8 @@ export default {
     updateTime (event) {
       this.currentTime = event.target.currentTime
     },
-    setDuration () {
-      this.duration = this.$refs.audio.duration
+    setDuration (event) {
+      this.duration = event.target.duration
     }
   },
   created () {
