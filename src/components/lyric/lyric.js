@@ -36,6 +36,9 @@ export default {
   },
   methods: {
     changeLyric (musicId) {
+      // 要获取当前播放的音乐所在的音乐列表id: musicListId
+      // 使用read('cloud-music', musicListId, newId)
+      // 判断数据库中有无该数据列表，没有则异步请求
       getMusicMessage(musicId).then((message) => {
         let music = new Music(message)
         let album = new Album(message)
