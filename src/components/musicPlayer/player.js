@@ -107,6 +107,7 @@ export default {
       let time = (event.target.value / 100) * this.duration
       this.currentTime = time
       this.$refs.audio.currentTime = time
+      this.$store.commit('setMusicTime', time)
     },
     decoratePrevNext () {
       let musicList = this.$store.state.musicIds
