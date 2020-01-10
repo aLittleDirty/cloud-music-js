@@ -29,10 +29,13 @@ export default {
       this.changeLyric(newId)
     },
     playing (newPlaying, oldPlaying) {
-      newPlaying ? this.lyric.play() : this.lyric.stop()
+      // 获取当前歌曲播放的时间,滚动到对应的歌词行
+      let time = this.$store.state.lyricInitTime
+      newPlaying ? this.lyric.seek(time) : this.lyric.stop()
     },
     // 监听因歌曲拖动而改变的播放时间
     musicTime (newTime) {
+      this.lyric.stop()
       this.lyric.seek(newTime)
     }
   },
@@ -74,10 +77,5 @@ export default {
         this.scroll = new Bscroll(this.$refs.wrapper, { scrollY: true })
       })
     })
-  },
-  mounted () {
-    // 获取当前歌曲播放的时间,滚动到对应的歌词行
-    let time = this.$store.state.lyricInitTime
-    this.lyric.seek(time)
   }
 }
