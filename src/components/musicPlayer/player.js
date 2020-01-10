@@ -55,6 +55,9 @@ export default {
   },
   methods: {
     refreshMusic (newId) {
+      // 要获取当前播放的音乐所在的音乐列表id: musicListId
+      // 使用read('cloud-music', musicListId, newId)
+      // 判断数据库中国有无该数据列表，没有则异步请求
       // 更新音乐信息
       let musicMessage = getMusicMessage(newId)
       return musicMessage.then((message) => {
