@@ -129,7 +129,7 @@ export default {
     updateTime (event) {
       let time = event.target.currentTime
       this.currentTime = time
-      this.$store.commit('setLyricInitTime', time)
+      this.$store.commit('setMusicTime', time)
     },
     initDuration (event) {
       this.duration = event.target.duration
