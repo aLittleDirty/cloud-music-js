@@ -5,7 +5,8 @@ import { Singer } from '../../model/singer.js'
 import Lyric from 'lyric-parser'
 import Bscroll from 'better-scroll'
 import { mapGetters } from 'vuex'
-
+// 问题1：在creat时，如何获得musicPlayer的参数
+// 问题2：在调用a组件的函数时，如何触发b组件的函数并传递参数？
 export default {
   name: 'lyric',
   data () {
@@ -21,7 +22,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['musicId', 'playing'])
+    ...mapGetters(['musicId', 'playing', 'musicTime'])
   },
   watch: {
     musicId (newId, oldId) {
@@ -29,6 +30,10 @@ export default {
     },
     playing (newPlaying, oldPlaying) {
       newPlaying ? this.lyric.play() : this.lyric.stop()
+    },
+    // 监听因歌曲拖动而改变的播放时间
+    musicTime (newTime) {
+      this.lyric.seek(newTime)
     }
   },
   methods: {
@@ -69,5 +74,10 @@ export default {
         this.scroll = new Bscroll(this.$refs.wrapper, { scrollY: true })
       })
     })
+  },
+  mounted () {
+    // 获取当前歌曲播放的时间,滚动到对应的歌词行
+    let time = this.$store.state.lyricInitTime
+    this.lyric.seek(time)
   }
 }
