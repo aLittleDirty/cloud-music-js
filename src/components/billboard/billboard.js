@@ -16,17 +16,17 @@ export default {
     } else {
       getBillboard().then((billboardList) => {
         let lists = []
-        let storeNameList = []
+        let storeIdList = []
         for (let i = 0; i < billboardList.length; i++) {
           let billboard = new Billboard(billboardList[i])
           lists.push(billboard)
-          storeNameList.push(billboard.name)
+          storeIdList.push(billboard.id)
         }
         localSet('billboardLists', lists)
         this.lists = lists
         this.loading = false
         // 创建数据库
-        initDataBase('cloud-music', storeNameList, 'id', 'name')
+        initDataBase('cloud-music', storeIdList, 'id', 'name')
       })
     }
   }
