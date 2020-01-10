@@ -8,7 +8,6 @@ export default new Vuex.Store({
     musicId: 347230,
     musicIds: [],
     playing: false,
-    lyricInitTime: 0,
     musicTime: 0
   },
   getters: {
@@ -17,9 +16,6 @@ export default new Vuex.Store({
     },
     playing (state) {
       return state.playing
-    },
-    musicTime (state) {
-      return state.musicTime
     }
   },
   mutations: {
@@ -31,9 +27,6 @@ export default new Vuex.Store({
     },
     setPlaying (state, newPlaying) {
       state.playing = newPlaying
-    },
-    setLyricInitTime (state, newTime) {
-      state.lyricInitTime = newTime
     },
     setMusicTime (state, newTime) {
       state.musicTime = newTime
