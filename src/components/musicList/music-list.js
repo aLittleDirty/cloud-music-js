@@ -20,6 +20,8 @@ export default {
   },
   created () {
     let billboardId = this.$route.query.id
+    // 在这里添加readAll('cloud-music', billboardId)，判断是否存在，如果不存在此数据库表，那么，就异步请求
+    // 获取这些数据之后，依然要for循环异步请求总时长
     let musicMessageList = getMusicIds(billboardId).then((musicIds) => {
       this.$store.commit('setMusicIds', musicIds)
       return getMusicMessageList(musicIds)
