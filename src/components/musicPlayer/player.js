@@ -120,7 +120,9 @@ export default {
       }
     },
     updateTime (event) {
-      this.currentTime = event.target.currentTime
+      let time = event.target.currentTime
+      this.currentTime = time
+      this.$store.commit('setLyricInitTime', time)
     },
     initDuration (event) {
       this.duration = event.target.duration
