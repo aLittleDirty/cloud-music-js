@@ -104,10 +104,16 @@ export default {
       isPlaying ? this.$refs.audio.play() : this.$refs.audio.pause()
     },
     resetProgress (event) {
+      this.$refs.audio.pause()
       let time = (event.target.value / 100) * this.duration
       this.currentTime = time
       this.$refs.audio.currentTime = time
       this.$store.commit('setMusicTime', time)
+      let _this = this
+      this.$refs.audio.oncanplay = function () {
+        _this.$refs.audio.play()
+        _this.$store.commit('setPlaying', true)
+      }
     },
     decoratePrevNext () {
       let musicList = this.$store.state.musicIds
