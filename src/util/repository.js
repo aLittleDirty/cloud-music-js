@@ -1,3 +1,19 @@
+// localStorage存储
+let storage = window.localStorage
+
+export function localSet (key, data) {
+  key = key.toString()
+  let jsonData = JSON.stringify(data)
+  storage.setItem(key, jsonData)
+}
+
+export function localGet (key) {
+  key = key.toString()
+  let jsonData = storage.getItem(key)
+  return JSON.parse(jsonData)
+}
+
+// indexedDB数据库
 // 创建数据库，并添加数据库表，设置主键和索引；设置requests,用于存放添加成功的回调函数
 export function initDataBase (dbName, objectStoreNameList, keyPathName, indexName) {
   let request = window.indexedDB.open(dbName)
