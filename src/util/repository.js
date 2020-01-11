@@ -30,7 +30,7 @@ export function initDataBase (dbName, objectStoreNameList, keyPathName, indexNam
 }
 
 // 添加数据
-export function add (dbName, objectStoreName, message) {
+export function addIndexedDBStore (dbName, objectStoreName, message) {
   let database = window.indexedDB.open(dbName)
   database.onsuccess = function (event) {
     database = event.target.result
