@@ -3,7 +3,7 @@ import { Music } from '../../model/music.js'
 import { Singer } from '../../model/singer.js'
 import { Album } from '../../model/album.js'
 import { formatSeconds } from '../../util/second-format.js'
-import { add } from '../../util/repository.js'
+import { promiseReadAll, addIndexedDBStore } from '../../util/repository.js'
 export default {
   name: 'musicList',
   data () {
@@ -20,46 +20,53 @@ export default {
   },
   created () {
     let billboardId = this.$route.query.id
-    // 在这里添加readAll('cloud-music', billboardId)，判断是否存在，如果不存在此数据库表，那么，就异步请求
-    // 获取这些数据之后，依然要for循环异步请求总时长
-    let musicMessageList = getMusicIds(billboardId).then((musicIds) => {
-      this.$store.commit('setMusicIds', musicIds)
-      return getMusicMessageList(musicIds)
-    })
-    musicMessageList.then((messages) => {
-      for (let i = 0; i < messages.length; i++) {
-        let message = messages[i]
-        let music = new Music(message)
-        let album = new Album(message)
-        let singer = new Singer(message)
-        let musicDetail = {
-          name: music.name,
-          id: music.id,
-          url: music.url,
-          singer: singer.name,
-          albumName: album.name,
-          duration: 'loading...',
-          absenceUrl: false
+    promiseReadAll('cloud-music', billboardId).then((musicList) => {
+      this.musicList = musicList
+    }, () => {
+      let musicMessageList = getMusicIds(billboardId).then((musicIds) => {
+        this.$store.commit('setMusicIds', musicIds)
+        return getMusicMessageList(musicIds)
+      })
+      musicMessageList.then((messages) => {
+        let promiseUrls = []
+        for (let i = 0; i < messages.length; i++) {
+          let message = messages[i]
+          let music = new Music(message)
+          let album = new Album(message)
+          let singer = new Singer(message)
+          let musicDetail = {
+            name: music.name,
+            id: music.id,
+            url: music.url,
+            singer: singer.name,
+            albumName: album.name,
+            duration: 'loading...',
+            absenceUrl: false
+          }
+          this.musicList.push(musicDetail)
+          // 获取异步返回的duration数据，并将完整的音乐信息存储到数据库表中
+          let urlPromise = new Promise((resolve, reject) => {
+            if (music.url) {
+              let audio = new Audio(music.url)
+              audio.oncanplay = function () {
+                musicDetail.duration = formatSeconds(audio.duration)
+                resolve(formatSeconds(audio.duration))
+              }
+            } else {
+              musicDetail.duration = '-- : --'
+              musicDetail.absenceUrl = true
+              reject(new Error('no duration with null musicUrl'))
+            }
+          })
+          promiseUrls.push(urlPromise)
         }
-        this.musicList.push(musicDetail)
-        add('cloud-music', billboardId, musicDetail)
-      }
-      // 处理每一首歌异步加载的duration
-      for (let i = 0; i < this.musicList.length; i++) {
-        let url = this.musicList[i].url
-        if (!url) {
-          this.musicList[i].duration = '-- : --'
-          this.musicList[i].absenceUrl = true
-          continue
-        }
-        let audio = new Audio(url)
-        let _this = this
-        // audio.oncanplay异步加载了audio.duration
-        audio.oncanplay = function () {
-          _this.musicList[i].duration = formatSeconds(audio.duration)
-        }
-      }
-      this.loading = false
+        Promise.all(promiseUrls).then((result) => {
+          for (let i = 0; i < result.length; i++) {
+            messages[i].duration = result[i]
+            addIndexedDBStore('cloud-music', billboardId, messages[i])
+          }
+        })
+      })
     })
   }
 }
