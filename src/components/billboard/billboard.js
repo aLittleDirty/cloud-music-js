@@ -24,10 +24,10 @@ export default {
         }
         localSet('billboardLists', lists)
         this.lists = lists
-        this.loading = false
         // 创建数据库
         initDataBase('cloud-music', storeIdList, 'id', 'name')
       })
     }
+    this.loading = false
   }
 }
