@@ -67,29 +67,54 @@ export function remove (dbName, objectStoreName, keyPath) {
   }
 }
 
+// 获取单个数据并返回一个promise对象
+export function promiseRead (dbName, objectStoreName, keyPath) {
+  return new Promise((resolve, reject) => {
+    read(dbName, objectStoreName, keyPath, resolve, reject)
+  })
+}
+
+// 获取一个数据库表的数据并返回一个promise对象
+export function promiseReadAll (dbName, objectStoreName) {
+  return new Promise((resolve, reject) => {
+    readAll(dbName, objectStoreName, resolve, reject)
+  })
+}
+
 // 获取数据库表中的单个数据
-export function read (dbName, objectStoreName, keyPath) {
+function read (dbName, objectStoreName, keyPath, successCallback, failCallback) {
   let database = window.indexedDB.open(dbName)
+  database.onerror = function (event) {
+    failCallback()
+  }
   database.onsuccess = function (event) {
     database = event.target.result
+    if (!database.objectStoreName.contains(objectStoreName)) {
+      failCallback()
+      return
+    }
     let request = database.transaction([objectStoreName]).objectStore(objectStoreName).get(keyPath)
     request.onsuccess = function (event) {
       let result = request.result
       if (!result) {
+        failCallback()
         return
       }
-      // 做想做的事
-      console.log(result)
+      successCallback(result)
     }
   }
 }
 
 // 获取数据库表中的所有数据
-export function readAll (dbName, objectStoreName) {
+function readAll (dbName, objectStoreName, successCallback, failCallback) {
   let database = window.indexedDB.open(dbName)
+  database.onerror = function (event) {
+    failCallback()
+  }
   database.onsuccess = function (event) {
     database = event.target.result
     if (!database.objectStoreNames.contains(objectStoreName)) {
+      failCallback()
       return
     }
     let storageList = []
@@ -100,9 +125,7 @@ export function readAll (dbName, objectStoreName) {
         storageList.push(cursor.value)
         cursor.continue()
       } else {
-        // 做想做的事
-        console.log(storageList)
-        console.log('没有更多数据了')
+        successCallback(storageList)
       }
     }
   }
