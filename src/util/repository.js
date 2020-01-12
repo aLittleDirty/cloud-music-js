@@ -89,7 +89,7 @@ function read (dbName, objectStoreName, keyPath, successCallback, failCallback) 
   }
   database.onsuccess = function (event) {
     database = event.target.result
-    if (!database.objectStoreName.contains(objectStoreName)) {
+    if (!database.objectStoreNames.contains(objectStoreName)) {
       failCallback()
       return
     }
