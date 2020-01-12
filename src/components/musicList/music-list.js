@@ -13,9 +13,6 @@ export default {
       loading: true
     }
   },
-  filters: {
-    formatValidTime
-  },
   methods: {
     setMusicId (id) {
       this.$store.commit('setMusicId', id)
@@ -54,10 +51,10 @@ export default {
           let audio = new Audio(musicUrl)
           let _this = this
           audio.oncanplay = function () {
-            _this.musicList[i].duration = audio.duration
+            _this.musicList[i].duration = formatValidTime(audio.duration)
           }
         } else {
-          this.musicList[i].duration = 0
+          this.musicList[i].duration = formatValidTime(0)
           this.musicList[i].absenceUrl = true
         }
       }

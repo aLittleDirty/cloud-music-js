@@ -17,7 +17,7 @@
           <td>{{item.name}}</td>
           <td>{{item.singer}}</td>
           <td>{{item.albumName}}</td>
-          <td class="time">{{item.duration | formatValidTime}}</td>
+          <td class="time">{{item.duration}}</td>
         </tr>
       </tbody>
     </table>
