@@ -32,15 +32,6 @@ export default {
       // 获取当前歌曲播放的时间,滚动到对应的歌词行
       let time = this.$store.state.musicTime
       newPlaying ? this.lyric.seek(time) : this.lyric.stop()
-    },
-    setMusicMessage (message) {
-      let music = new Music(message)
-      let album = new Album(message)
-      let singer = new Singer(message)
-      this.musicName = music.name
-      this.albumName = album.name
-      this.albumImg = album.image
-      this.singer = singer.name
     }
   },
   methods: {
@@ -72,6 +63,15 @@ export default {
       if ((contentScrollTop > 0) && (contentScrollTop + wrapperHeight < contentHeight)) {
         this.scroll.scrollTo(0, -contentScrollTop, 1000)
       }
+    },
+    setMusicMessage (message) {
+      let music = new Music(message)
+      let album = new Album(message)
+      let singer = new Singer(message)
+      this.musicName = music.name
+      this.albumName = album.name
+      this.albumImg = album.image
+      this.singer = singer.name
     }
   },
   mounted () {
