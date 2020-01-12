@@ -9,7 +9,8 @@ export default new Vuex.Store({
     billboardId: 0,
     musicIds: [],
     playing: false,
-    musicTime: 0
+    initTime: 0,
+    resetTime: 0
   },
   getters: {
     musicId (state) {
@@ -17,6 +18,9 @@ export default new Vuex.Store({
     },
     playing (state) {
       return state.playing
+    },
+    resetTime (state) {
+      return state.resetTime
     }
   },
   mutations: {
@@ -29,11 +33,14 @@ export default new Vuex.Store({
     setPlaying (state, newPlaying) {
       state.playing = newPlaying
     },
-    setMusicTime (state, newTime) {
-      state.musicTime = newTime
+    setLyricInitTime (state, newTime) {
+      state.initTime = newTime
     },
     setBillboardId (state, newBillboardId) {
       state.billboardId = newBillboardId
+    },
+    setResetTime (state, newTime) {
+      state.resetTime = newTime
     }
   },
   actions: {
