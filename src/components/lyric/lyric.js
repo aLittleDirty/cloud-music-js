@@ -82,7 +82,7 @@ export default {
         this.scroll = new Bscroll(this.$refs.wrapper, { scrollY: true })
         let playing = this.$store.state.playing
         if (playing) {
-          let time = (this.$store.state.musicTime) * 1000
+          let time = (this.$store.state.initTime) * 1000
           this.lyric.seek(time)
         }
       })
