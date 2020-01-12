@@ -2,7 +2,7 @@ import { mapGetters } from 'vuex'
 import { getMusicMessage } from '../../api/music-api.js'
 import { Music } from '../../model/music.js'
 import { Singer } from '../../model/singer.js'
-import { formatSeconds } from '../../util/second-format.js'
+import { formatSeconds, formatValidTime } from '../../util/second-format.js'
 import { Album } from '../../model/album.js'
 import { promiseRead } from '../../util/repository.js'
 export default {
@@ -22,7 +22,8 @@ export default {
     }
   },
   filters: {
-    formatSeconds
+    formatSeconds,
+    formatValidTime
   },
   computed: {
     ...mapGetters(['musicId'])

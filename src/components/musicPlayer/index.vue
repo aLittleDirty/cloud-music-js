@@ -11,7 +11,7 @@
         <img :src="imageUrl"/>
       </router-link>
       <p>{{musicName}} - <span>{{singer}}</span></p>
-      <p>{{currentTime | formatSeconds}} / {{duration | formatSeconds}}</p>
+      <p>{{currentTime | formatSeconds}} / {{duration | formatValidTime}}</p>
       <input ref="progress" class="progress" @input="resetProgress" type="range" value="0" max="100" min="0"/>
     </div>
     <div class="controllers">
