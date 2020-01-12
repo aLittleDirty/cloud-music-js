@@ -12,6 +12,9 @@ function format (rawTime) {
   return time
 }
 
-export function formatInvalidTime (invalidTime) {
-  return '-- : --'
+export function formatValidTime (seconds) {
+  if (seconds === 0) {
+    return '-- : --'
+  }
+  return formatSeconds(seconds)
 }
