@@ -64,6 +64,9 @@ export default {
       if ((contentScrollTop > 0) && (contentScrollTop + wrapperHeight < contentHeight)) {
         this.scroll.scrollTo(0, -contentScrollTop, 1000)
       }
+      if (contentScrollTop < 0) {
+        this.scroll.scrollTo(0, 0, 1000)
+      }
     },
     setMusicMessage (message) {
       let music = new Music(message)
