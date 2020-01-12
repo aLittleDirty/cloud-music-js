@@ -3,7 +3,7 @@ import { Music } from '../../model/music.js'
 import { Singer } from '../../model/singer.js'
 import { Album } from '../../model/album.js'
 import { formatSeconds } from '../../util/second-format.js'
-import { promiseReadAll, addIndexedDBStore } from '../../util/repository.js'
+import { promiseReadAll, addIndexedDBStore, localSet } from '../../util/repository.js'
 export default {
   name: 'musicList',
   data () {
@@ -13,59 +13,103 @@ export default {
       loading: true
     }
   },
+  filters: {
+    formatSeconds
+  },
   methods: {
     setMusicId (id) {
       this.$store.commit('setMusicId', id)
+    },
+    setMusicList (messageList) {
+      for (let i = 0; i < messageList.length; i++) {
+        let message = messageList[i]
+        let music = new Music(message)
+        let album = new Album(message)
+        let singer = new Singer(message)
+        let musicDetail = {
+          name: music.name,
+          id: music.id,
+          url: music.url,
+          singer: singer.name,
+          albumName: album.name,
+          duration: 'loading...',
+          absenceUrl: false
+        }
+        this.musicList.push(musicDetail)
+      }
+    },
+    storeMusicIds (billboardId, messageList) {
+      let musicIds = []
+      for (let i = 0; i < messageList.length; i++) {
+        let message = messageList[i]
+        message.url && musicIds.push(message.id)
+      }
+      localSet(billboardId, musicIds)
+      this.$store.commit('setMusicIds', musicIds)
+    },
+    initDuration (musicUrls) {
+      for (let i = 0; i < musicUrls.length; i++) {
+        let musicUrl = musicUrls[i]
+        if (musicUrl) {
+          let audio = new Audio(musicUrl)
+          let _this = this
+          audio.oncanplay = function () {
+            _this.musicList[i].duration = audio.duration
+          }
+        } else {
+          this.musicList[i].duration = 0
+          this.musicList[i].absenceUrl = true
+        }
+      }
+    },
+    setDurations (durations) {
+      for (let i = 0; i < durations.length; i++) {
+        this.musicList[i].duration = durations[i]
+      }
+    },
+    storeMusicMessages (billboardId, messageList, musicUrls) {
+      let promiseDurations = []
+      for (let i = 0; i < musicUrls.length; i++) {
+        let musicUrl = musicUrls[i]
+        let promiseDuration = new Promise((resolve, reject) => {
+          if (musicUrl) {
+            let audio = new Audio(musicUrl)
+            audio.oncanplay = function () {
+              resolve(audio.duration)
+            }
+          } else {
+            resolve(0)
+          }
+        })
+        promiseDurations.push(promiseDuration)
+      }
+      Promise.all(promiseDurations).then((result) => {
+        for (let i = 0; i < result.length; i++) {
+          messageList[i].duration = result[i]
+          addIndexedDBStore('cloud-music', billboardId, messageList[i])
+        }
+      })
     }
   },
   created () {
     let billboardId = this.$route.query.id
-    promiseReadAll('cloud-music', billboardId).then((musicList) => {
-      this.musicList = musicList
+    this.$store.commit('setBillboardId', billboardId)
+    promiseReadAll('cloud-music', billboardId).then((musicMessages) => {
+      this.setMusicList(musicMessages)
+      let musicIds = musicMessages.map(value => value.id)
+      this.$store.commit('setMusicIds', musicIds)
+      let durations = musicMessages.map(value => value.duration)
+      this.setDurations(durations)
     }, () => {
       let musicMessageList = getMusicIds(billboardId).then((musicIds) => {
-        this.$store.commit('setMusicIds', musicIds)
         return getMusicMessageList(musicIds)
       })
-      musicMessageList.then((messages) => {
-        let promiseUrls = []
-        for (let i = 0; i < messages.length; i++) {
-          let message = messages[i]
-          let music = new Music(message)
-          let album = new Album(message)
-          let singer = new Singer(message)
-          let musicDetail = {
-            name: music.name,
-            id: music.id,
-            url: music.url,
-            singer: singer.name,
-            albumName: album.name,
-            duration: 'loading...',
-            absenceUrl: false
-          }
-          this.musicList.push(musicDetail)
-          // 获取异步返回的duration数据，并将完整的音乐信息存储到数据库表中
-          let urlPromise = new Promise((resolve, reject) => {
-            if (music.url) {
-              let audio = new Audio(music.url)
-              audio.oncanplay = function () {
-                musicDetail.duration = formatSeconds(audio.duration)
-                resolve(formatSeconds(audio.duration))
-              }
-            } else {
-              musicDetail.duration = '-- : --'
-              musicDetail.absenceUrl = true
-              reject(new Error('no duration with null musicUrl'))
-            }
-          })
-          promiseUrls.push(urlPromise)
-        }
-        Promise.all(promiseUrls).then((result) => {
-          for (let i = 0; i < result.length; i++) {
-            messages[i].duration = result[i]
-            addIndexedDBStore('cloud-music', billboardId, messages[i])
-          }
-        })
+      musicMessageList.then((musicMessages) => {
+        this.setMusicList(musicMessages)
+        this.storeMusicIds(billboardId, musicMessages)
+        let musicUrls = musicMessages.map(value => value.url)
+        this.initDuration(musicUrls)
+        this.storeMusicMessages(billboardId, musicMessages, musicUrls)
       })
     })
     this.loading = false
