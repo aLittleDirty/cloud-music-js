@@ -22,16 +22,17 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['musicId', 'playing'])
+    ...mapGetters(['musicId', 'playing', 'resetTime'])
   },
   watch: {
     musicId (newId, oldId) {
       this.changeLyric(newId)
     },
     playing (newPlaying, oldPlaying) {
-      // 获取当前歌曲播放的时间,滚动到对应的歌词行
-      let time = this.$store.state.musicTime
-      newPlaying ? this.lyric.seek(time * 1000) : this.lyric.stop()
+      newPlaying ? this.lyric.play() : this.lyric.stop()
+    },
+    resetTime (newTime) {
+      this.changeCurrentLine(newTime)
     }
   },
   methods: {
@@ -72,6 +73,11 @@ export default {
       this.albumName = album.name
       this.albumImg = album.image
       this.singer = singer.name
+    },
+    changeCurrentLine (time) {
+      this.lyric.seek(time * 1000)
+      let playing = this.$store.state.playing
+      !playing && this.lyric.stop()
     }
   },
   mounted () {
@@ -80,11 +86,8 @@ export default {
       this.loading = false
       this.$nextTick(() => {
         this.scroll = new Bscroll(this.$refs.wrapper, { scrollY: true })
-        let playing = this.$store.state.playing
-        if (playing) {
-          let time = (this.$store.state.initTime) * 1000
-          this.lyric.seek(time)
-        }
+        let time = this.$store.state.initTime
+        this.changeCurrentLine(time)
       })
     })
   }
