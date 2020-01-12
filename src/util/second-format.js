@@ -11,3 +11,7 @@ function format (rawTime) {
   }
   return time
 }
+
+export function formatInvalidTime (invalidTime) {
+  return '-- : --'
+}
