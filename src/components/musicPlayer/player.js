@@ -4,6 +4,7 @@ import { Music } from '../../model/music.js'
 import { Singer } from '../../model/singer.js'
 import { formatSeconds } from '../../util/second-format.js'
 import { Album } from '../../model/album.js'
+import { promiseRead } from '../../util/repository.js'
 export default {
   name: 'musicPlayer',
   data () {
@@ -29,17 +30,16 @@ export default {
   watch: {
     musicId (newId, oldId) {
       this.currentMusicId = newId
-      this.playing = false
       this.currentTime = 0
-      this.decoratePrevNext()
+      this.refreshMusic(newId)
+      this.playing = false
       this.$store.commit('setPlaying', this.playing)
-      this.refreshMusic(newId).then(() => {
-        let _this = this
-        this.$refs.audio.oncanplay = function () {
-          _this.playing = true
-          _this.$store.commit('setPlaying', _this.playing)
-        }
-      })
+      let _this = this
+      this.$refs.audio.oncanplay = function () {
+        _this.playing = true
+        _this.$store.commit('setPlaying', _this.playing)
+      }
+      this.decoratePrevNext()
     },
     playing (newValue, oldValue) {
       this.toPlay(newValue)
@@ -55,20 +55,23 @@ export default {
   },
   methods: {
     refreshMusic (newId) {
-      // 要获取当前播放的音乐所在的音乐列表id: musicListId
-      // 使用read('cloud-music', musicListId, newId)
-      // 判断数据库中有无该数据列表，没有则异步请求
-      // 更新音乐信息
-      let musicMessage = getMusicMessage(newId)
-      return musicMessage.then((message) => {
-        let music = new Music(message)
-        let singer = new Singer(message)
-        let album = new Album(message)
-        this.musicName = music.name
-        this.musicUrl = music.url
-        this.singer = singer.name
-        this.imageUrl = album.image
+      let objectStoreId = this.$store.state.billboardId
+      promiseRead('cloud-music', objectStoreId, newId).then((result) => {
+        this.initMusicMessage(result)
+      }, () => {
+        getMusicMessage(newId).then((message) => {
+          this.initMusicMessage(message)
+        })
       })
+    },
+    initMusicMessage (message) {
+      let music = new Music(message)
+      let singer = new Singer(message)
+      let album = new Album(message)
+      this.musicName = music.name
+      this.musicUrl = music.url
+      this.singer = singer.name
+      this.imageUrl = album.image
     },
     changeVolume (event) {
     // 改变音量大小，设置音量控制条样式
