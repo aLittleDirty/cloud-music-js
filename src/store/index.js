@@ -6,6 +6,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     musicId: 347230,
+    billboardId: 0,
     musicIds: [],
     playing: false,
     musicTime: 0
@@ -30,6 +31,9 @@ export default new Vuex.Store({
     },
     setMusicTime (state, newTime) {
       state.musicTime = newTime
+    },
+    setBillboardId (state, newBillboardId) {
+      state.billboardId = newBillboardId
     }
   },
   actions: {
