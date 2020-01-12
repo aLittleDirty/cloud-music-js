@@ -5,8 +5,8 @@ import { Singer } from '../../model/singer.js'
 import Lyric from 'lyric-parser'
 import Bscroll from 'better-scroll'
 import { mapGetters } from 'vuex'
-// 问题1：在creat时，如何获得musicPlayer的参数
-// 问题2：在调用a组件的函数时，如何触发b组件的函数并传递参数？
+import { promiseRead } from '../../util/repository.js'
+
 export default {
   name: 'lyric',
   data () {
@@ -32,24 +32,31 @@ export default {
       // 获取当前歌曲播放的时间,滚动到对应的歌词行
       let time = this.$store.state.musicTime
       newPlaying ? this.lyric.seek(time) : this.lyric.stop()
+    },
+    setMusicMessage (message) {
+      let music = new Music(message)
+      let album = new Album(message)
+      let singer = new Singer(message)
+      this.musicName = music.name
+      this.albumName = album.name
+      this.albumImg = album.image
+      this.singer = singer.name
     }
   },
   methods: {
-    changeLyric (musicId) {
-      // 要获取当前播放的音乐所在的音乐列表id: musicListId
-      // 使用read('cloud-music', musicListId, newId)
-      // 判断数据库中有无该数据列表，没有则异步请求
-      getMusicMessage(musicId).then((message) => {
-        let music = new Music(message)
-        let album = new Album(message)
-        let singer = new Singer(message)
-        this.musicName = music.name
-        this.albumName = album.name
-        this.albumImg = album.image
-        this.singer = singer.name
+    changeLyric (musicId, callBack) {
+      let objectStoreId = this.$store.state.billboardId
+      promiseRead('cloud-music', objectStoreId, musicId).then((result) => {
+        this.setMusicMessage(result)
+      }, () => {
+        getMusicMessage(musicId).then((message) => {
+          this.setMusicMessage(message)
+        })
       })
-      return getLyric(musicId).then((result) => {
+      getLyric(musicId).then((result) => {
         this.lyric = new Lyric(result, this.handleLyric)
+      }).then(() => {
+        callBack && callBack()
       })
     },
     handleLyric (obj) {
@@ -69,7 +76,7 @@ export default {
   },
   mounted () {
     let musicId = this.$store.state.musicId
-    this.changeLyric(musicId).then(() => {
+    this.changeLyric(musicId, () => {
       this.loading = false
       this.$nextTick(() => {
         this.scroll = new Bscroll(this.$refs.wrapper, { scrollY: true })
