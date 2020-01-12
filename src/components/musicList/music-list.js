@@ -2,7 +2,7 @@ import { getMusicIds, getMusicMessageList } from '../../api/music-api.js'
 import { Music } from '../../model/music.js'
 import { Singer } from '../../model/singer.js'
 import { Album } from '../../model/album.js'
-import { formatSeconds } from '../../util/second-format.js'
+import { formatValidTime } from '../../util/second-format.js'
 import { promiseReadAll, addIndexedDBStore, localSet } from '../../util/repository.js'
 export default {
   name: 'musicList',
@@ -14,7 +14,7 @@ export default {
     }
   },
   filters: {
-    formatSeconds
+    formatValidTime
   },
   methods: {
     setMusicId (id) {
