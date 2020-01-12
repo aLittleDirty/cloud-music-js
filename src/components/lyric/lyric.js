@@ -31,7 +31,7 @@ export default {
     playing (newPlaying, oldPlaying) {
       // 获取当前歌曲播放的时间,滚动到对应的歌词行
       let time = this.$store.state.musicTime
-      newPlaying ? this.lyric.seek(time) : this.lyric.stop()
+      newPlaying ? this.lyric.seek(time * 1000) : this.lyric.stop()
     }
   },
   methods: {
@@ -82,7 +82,7 @@ export default {
         this.scroll = new Bscroll(this.$refs.wrapper, { scrollY: true })
         let playing = this.$store.state.playing
         if (playing) {
-          let time = this.$store.state.musicTime
+          let time = (this.$store.state.musicTime) * 1000
           this.lyric.seek(time)
         }
       })
