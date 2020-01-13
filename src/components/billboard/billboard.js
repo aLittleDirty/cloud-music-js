@@ -25,7 +25,7 @@ export default {
         localSet('billboardLists', lists)
         this.lists = lists
         // 创建数据库
-        initDataBase('cloud-music', storeIdList, 'id', 'name')
+        initDataBase('cloud-music', storeIdList, 'id', 'page')
       })
     }
     this.loading = false
