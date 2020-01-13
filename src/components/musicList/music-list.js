@@ -98,10 +98,9 @@ export default {
       let durations = musicMessages.map(value => value.duration)
       this.setDurations(durations)
     }, () => {
-      let musicMessageList = getMusicIds(billboardId).then((musicIds) => {
+      getMusicIds(billboardId).then((musicIds) => {
         return getMusicMessageList(musicIds)
-      })
-      musicMessageList.then((musicMessages) => {
+      }).then((musicMessages) => {
         this.setMusicList(musicMessages)
         this.storeMusicIds(billboardId, musicMessages)
         let musicUrls = musicMessages.map(value => value.url)
