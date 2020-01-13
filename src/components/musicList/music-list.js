@@ -10,7 +10,9 @@ export default {
     return {
       message: 'musicList',
       musicList: [],
-      loading: true
+      loading: true,
+      totalPage: 5,
+      currentPage: 1
     }
   },
   methods: {
@@ -64,7 +66,7 @@ export default {
         this.musicList[i].duration = durations[i]
       }
     },
-    storeMusicMessages (billboardId, messageList, musicUrls) {
+    storeMusicMessages (billboardId, messageList, musicUrls, storeIndex) {
       let promiseDurations = []
       for (let i = 0; i < musicUrls.length; i++) {
         let musicUrl = musicUrls[i]
@@ -83,6 +85,7 @@ export default {
       Promise.all(promiseDurations).then((result) => {
         for (let i = 0; i < result.length; i++) {
           messageList[i].duration = result[i]
+          messageList[i].page = storeIndex
           addIndexedDBStore('cloud-music', billboardId, messageList[i])
         }
       })
@@ -91,6 +94,7 @@ export default {
   created () {
     let billboardId = this.$route.query.id
     this.$store.commit('setBillboardId', billboardId)
+    // 这里使用promiseKeyRange方法
     promiseReadAll('cloud-music', billboardId).then((musicMessages) => {
       this.setMusicList(musicMessages)
       let musicIds = musicMessages.map(value => value.id)
@@ -99,13 +103,16 @@ export default {
       this.setDurations(durations)
     }, () => {
       getMusicIds(billboardId).then((musicIds) => {
-        return getMusicMessageList(musicIds)
+        let range = musicIds.length / this.totalPage
+        let start = range * (this.currentPage - 1)
+        let requiredIds = musicIds.splice(start, range)
+        return getMusicMessageList(requiredIds)
       }).then((musicMessages) => {
         this.setMusicList(musicMessages)
         this.storeMusicIds(billboardId, musicMessages)
         let musicUrls = musicMessages.map(value => value.url)
         this.initDuration(musicUrls)
-        this.storeMusicMessages(billboardId, musicMessages, musicUrls)
+        this.storeMusicMessages(billboardId, musicMessages, musicUrls, this.currentPage)
       })
     })
     this.loading = false
