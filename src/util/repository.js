@@ -152,3 +152,36 @@ export function getIndex (dbName, objectStoreName, key, value) {
     }
   }
 }
+
+// 游标与索引结合查找值
+function readKeyRangeData (dbName, objectStoreName, indexName, index, successCallback, failCallback) {
+  let database = window.indexedDB.open(dbName)
+  database.onerror = function (event) {
+    failCallback()
+  }
+  database.onsuccess = function (event) {
+    database = event.target.result
+    if (!database.objectStoreNames.contains(objectStoreName)) {
+      failCallback()
+      return
+    }
+    let storageList = []
+    let objectStore = database.transaction(objectStoreName).objectStore(objectStoreName)
+    let request = objectStore.index(indexName).openCursor(IDBKeyRange.only(index))
+    request.onsuccess = function (event) {
+      let cursor = event.target.result
+      if (cursor) {
+        storageList.push(cursor.value)
+        cursor.continue()
+      } else {
+        successCallback(storageList)
+      }
+    }
+  }
+}
+
+export function promiseReadKeyRange (dbName, objectStoreName, indexName, index) {
+  return new Promise((resolve, reject) => {
+    readKeyRangeData(dbName, objectStoreName, indexName, index, resolve, reject)
+  })
+}
