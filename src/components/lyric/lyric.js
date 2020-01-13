@@ -29,7 +29,8 @@ export default {
       this.changeLyric(newId)
     },
     playing (newPlaying, oldPlaying) {
-      newPlaying ? this.lyric.play() : this.lyric.stop()
+      let time = this.$store.state.initTime
+      newPlaying ? this.lyric.seek(time * 1000) : this.lyric.stop()
     },
     resetTime (newTime) {
       this.changeCurrentLine(newTime)
