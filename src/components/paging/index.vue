@@ -12,4 +12,4 @@
   </div>
 </template>
 <script src="./paging.js"></script>
-<style scoped src="paging.css"></style>
+<style scoped src="./paging.css"></style>
