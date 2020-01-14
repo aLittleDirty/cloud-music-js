@@ -1,11 +1,12 @@
 export default {
   name: 'paging',
   props: {
-    lists: Number,
+    listsLength: Number,
     currentPage: Number
   },
   methods: {
     gotoPage (num) {
+      console.log(num)
       this.$emit('setPage', num)
     }
   }
