@@ -1,7 +1,7 @@
 export default {
   name: 'paging',
   props: {
-    listsLength: Number,
+    pages: Number,
     currentPage: Number
   },
   methods: {
