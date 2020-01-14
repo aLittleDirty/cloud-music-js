@@ -1,12 +1,23 @@
 import { Billboard } from '../../model/billboard.js'
 import { getBillboard } from '../../api/music-api.js'
 import { localGet, localSet, initDataBase } from '../../util/repository.js'
+import Paging from '../paging/index.vue'
 export default {
   name: 'billboard',
+  components: {
+    Paging
+  },
   data () {
     return {
       lists: [],
-      loading: true
+      loading: true,
+      pagesNum: 5,
+      currentPage: 0
+    }
+  },
+  methods: {
+    gotoPage (num) {
+      this.currentPage = num
     }
   },
   created () {
