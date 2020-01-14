@@ -3,7 +3,7 @@ import { Music } from '../../model/music.js'
 import { Singer } from '../../model/singer.js'
 import { Album } from '../../model/album.js'
 import { formatValidTime } from '../../util/second-format.js'
-import { promiseReadAll, addIndexedDBStore, localSet } from '../../util/repository.js'
+import { addIndexedDBStore, localSet, promiseReadKeyRange } from '../../util/repository.js'
 export default {
   name: 'musicList',
   data () {
@@ -94,8 +94,7 @@ export default {
   created () {
     let billboardId = this.$route.query.id
     this.$store.commit('setBillboardId', billboardId)
-    // 这里使用promiseKeyRange方法
-    promiseReadAll('cloud-music', billboardId).then((musicMessages) => {
+    promiseReadKeyRange('cloud-music', billboardId, 'page', this.currentPage).then((musicMessages) => {
       this.setMusicList(musicMessages)
       let musicIds = musicMessages.map(value => value.id)
       this.$store.commit('setMusicIds', musicIds)
