@@ -30,6 +30,7 @@ export default {
       this.$store.commit('setMusicId', id)
     },
     setMusicList (messageList) {
+      this.musicList = []
       for (let i = 0; i < messageList.length; i++) {
         let message = messageList[i]
         let music = new Music(message)
