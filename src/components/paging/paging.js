@@ -6,7 +6,6 @@ export default {
   },
   methods: {
     gotoPage (num) {
-      console.log(num)
       this.$emit('setPage', num)
     }
   }
