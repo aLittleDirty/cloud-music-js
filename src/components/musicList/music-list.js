@@ -116,7 +116,7 @@ export default {
       }, () => {
         getMusicIds(billboardId).then((musicIds) => {
           let range = musicIds.length / this.totalPage
-          let start = range * (this.currentPage - 1)
+          let start = range * this.currentPage
           let requiredIds = musicIds.splice(start, range)
           return getMusicMessageList(requiredIds)
         }).then((musicMessages) => {
