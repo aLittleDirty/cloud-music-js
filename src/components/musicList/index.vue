@@ -22,7 +22,7 @@
           </tr>
         </tbody>
       </table>
-      <Paging :listsLength="totalPage" :currentPage="currentPage" @setPage="gotoPage"/>
+      <Paging :pages="totalPage" :currentPage="currentPage" @setPage="gotoPage"/>
     </div>
   </div>
 </template>
