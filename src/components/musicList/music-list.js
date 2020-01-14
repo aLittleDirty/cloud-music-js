@@ -17,7 +17,7 @@ export default {
       musicList: [],
       loading: true,
       totalPage: 5,
-      currentPage: 1
+      currentPage: 0
     }
   },
   methods: {
