@@ -1,0 +1,15 @@
+.first, .prev, .next, .last {
+  outline: none;
+  background: transparent;
+  border: 0;
+}
+
+.icon {
+  outline: none;
+  background: transparent;
+  border: 1px solid rgba(144, 144, 144, 1)
+}
+
+.icon.highLight {
+  background-color: rgba(0, 0, 255, 0.5)
+}
