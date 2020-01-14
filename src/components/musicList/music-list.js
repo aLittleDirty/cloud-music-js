@@ -20,6 +20,11 @@ export default {
       currentPage: 0
     }
   },
+  watch: {
+    currentPage () {
+      this.getData()
+    }
+  },
   methods: {
     setMusicId (id) {
       this.$store.commit('setMusicId', id)
@@ -97,31 +102,34 @@ export default {
     },
     gotoPage (num) {
       this.currentPage = num
+    },
+    getData () {
+      let billboardId = this.$route.query.id
+      this.$store.commit('setBillboardId', billboardId)
+      promiseReadKeyRange('cloud-music', billboardId, 'page', this.currentPage).then((musicMessages) => {
+        this.setMusicList(musicMessages)
+        let musicIds = musicMessages.map(value => value.id)
+        this.$store.commit('setMusicIds', musicIds)
+        let durations = musicMessages.map(value => value.duration)
+        this.setDurations(durations)
+      }, () => {
+        getMusicIds(billboardId).then((musicIds) => {
+          let range = musicIds.length / this.totalPage
+          let start = range * (this.currentPage - 1)
+          let requiredIds = musicIds.splice(start, range)
+          return getMusicMessageList(requiredIds)
+        }).then((musicMessages) => {
+          this.setMusicList(musicMessages)
+          this.storeMusicIds(billboardId, musicMessages)
+          let musicUrls = musicMessages.map(value => value.url)
+          this.initDuration(musicUrls)
+          this.storeMusicMessages(billboardId, musicMessages, musicUrls, this.currentPage)
+        })
+      })
+      this.loading = false
     }
   },
   created () {
-    let billboardId = this.$route.query.id
-    this.$store.commit('setBillboardId', billboardId)
-    promiseReadKeyRange('cloud-music', billboardId, 'page', this.currentPage).then((musicMessages) => {
-      this.setMusicList(musicMessages)
-      let musicIds = musicMessages.map(value => value.id)
-      this.$store.commit('setMusicIds', musicIds)
-      let durations = musicMessages.map(value => value.duration)
-      this.setDurations(durations)
-    }, () => {
-      getMusicIds(billboardId).then((musicIds) => {
-        let range = musicIds.length / this.totalPage
-        let start = range * (this.currentPage - 1)
-        let requiredIds = musicIds.splice(start, range)
-        return getMusicMessageList(requiredIds)
-      }).then((musicMessages) => {
-        this.setMusicList(musicMessages)
-        this.storeMusicIds(billboardId, musicMessages)
-        let musicUrls = musicMessages.map(value => value.url)
-        this.initDuration(musicUrls)
-        this.storeMusicMessages(billboardId, musicMessages, musicUrls, this.currentPage)
-      })
-    })
-    this.loading = false
+    this.getData()
   }
 }
