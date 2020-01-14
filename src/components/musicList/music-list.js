@@ -4,7 +4,7 @@ import { Singer } from '../../model/singer.js'
 import { Album } from '../../model/album.js'
 import { formatValidTime } from '../../util/second-format.js'
 import { addIndexedDBStore, localSet, promiseReadKeyRange } from '../../util/repository.js'
-import { Paging } from '../../components/paging/index.vue'
+import Paging from '../../components/paging/index.vue'
 
 export default {
   name: 'musicList',
