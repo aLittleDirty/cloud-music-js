@@ -9,15 +9,15 @@
   margin:auto;
 }
 
-.loaded {
+.loaded ul{
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   flex-wrap: wrap;
 }
 
 .loaded li {
   list-style: none;
-  margin: 10px;
+  margin: 10px 20px;
   position: relative;
 }
 
@@ -48,3 +48,7 @@
   color: rgba(144, 0, 0, 1);
 }
 
+.paging {
+  position: absolute;
+  bottom: 0;
+}

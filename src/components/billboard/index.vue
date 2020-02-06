@@ -12,7 +12,7 @@
           </router-link>
         </li>
       </ul>
-      <Paging :pages="pagesNum" :currentPage="currentPage" @setPage="gotoPage"/>
+      <Paging class="paging" :pages="pagesNum" :currentPage="currentPage" @setPage="gotoPage"/>
     </div>
   </div>
 </template>
