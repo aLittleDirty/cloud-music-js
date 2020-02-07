@@ -1,4 +1,4 @@
-import { getHttp } from '../util/http-util'
+import { getHttp, httpPost } from '../util/http-util'
 // import { localGet } from '../util/repository'
 
 export function getBillboard () {
@@ -101,4 +101,35 @@ export function getMusicDetail (musicId) {
     }
     return list
   })
+}
+
+export function postUserMessage (userPhone, passWord) {
+  if (userPhone && passWord) {
+    let path = '/login/cellphone'
+    let params = `phone=${userPhone}&password=${passWord}`
+    return httpPost(path, params).then((result) => {
+      return { userName: result.profile.nickname, userIcon: result.profile.avatarUrl }
+    })
+  }
+}
+
+export function getLogStatus () {
+  let path = '/login/status'
+  return getHttp(path).then((result) => {
+    if (status.code === 200) {
+      return {
+        isLogin: true,
+        userName: result.profile.nickname,
+        userIcon: result.profile.avatarUrl
+      }
+    }
+
+    return {
+      isLogin: false
+    }
+  })
+}
+
+export function postLogout () {
+  httpPost('/logout')
 }

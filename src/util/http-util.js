@@ -2,12 +2,18 @@ import axios from 'axios'
 
 export function getHttp (url, params) {
   return new Promise((resolve, reject) => {
-    get(url, params, resolve, reject)
+    httpRequest(axios.get(`${url}?${params}`), resolve, reject)
   })
 }
 
-function get (url, params, resolve, reject) {
-  axios.get(`${url}?${params}`).then((result) => {
+export function httpPost (url, params) {
+  return new Promise((resolve, reject) => {
+    httpRequest(axios.post(`${url}?${params}`), resolve, reject)
+  })
+}
+
+function httpRequest (callbackPromise, resolve, reject) {
+  callbackPromise.then((result) => {
     if (result.status !== 200) {
       return false
     }
