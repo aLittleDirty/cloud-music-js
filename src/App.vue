@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <Header/>
+    <Banner/>
     <router-view/>
     <MusicPlayer/>
     <Login/>
