@@ -1,5 +1,5 @@
 .fade-img-enter-active, .fade-img-leave-active {
-  transition: opacity 1s;
+  transition: opacity 2s;
 }
 
 .fade-img-enter, .fade-img-leave-to {

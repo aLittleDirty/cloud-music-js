@@ -19,7 +19,7 @@ export default {
       this.pages = banners
       this.player = setInterval(() => {
         this.currentPage = this.currentPage < 7 ? this.currentPage + 1 : 0
-      }, 1000)
+      }, 4000)
     })
   },
   beforeDestroy () {
