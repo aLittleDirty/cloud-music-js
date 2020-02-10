@@ -115,8 +115,9 @@ export function postUserMessage (userPhone, passWord) {
 
 export function getLogStatus () {
   let path = '/login/status'
-  return getHttp(path).then((result) => {
-    if (status.code === 200) {
+  let params = `timestamp=${Date.now()}`
+  return getHttp(path, params).then((result) => {
+    if (result.code === 200) {
       return {
         isLogin: true,
         userName: result.profile.nickname,
