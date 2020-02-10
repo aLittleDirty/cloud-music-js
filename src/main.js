@@ -6,6 +6,7 @@ import store from './store'
 
 Vue.config.productionTip = false
 axios.defaults.baseURL = 'http://localhost:3000'
+axios.defaults.withCredentials = true
 
 new Vue({
   router,
