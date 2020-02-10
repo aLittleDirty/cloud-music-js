@@ -6,7 +6,7 @@ export function getHttp (url, params = '') {
   })
 }
 
-export function httpPost (url, params) {
+export function httpPost (url, params = '') {
   return new Promise((resolve, reject) => {
     httpRequest(axios.post(`${url}?${params}`), resolve, reject)
   })
