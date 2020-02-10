@@ -134,3 +134,14 @@ export function getLogStatus () {
 export function postLogout () {
   httpPost('/logout')
 }
+
+export function getBanner () {
+  return getHttp('/banner').then((result) => {
+    let banners = []
+    for (let i = 0; i < result.banners.length; i++) {
+      let imageUrl = result.banners[i].imageUrl
+      banners.push(imageUrl)
+    }
+    return banners
+  })
+}
