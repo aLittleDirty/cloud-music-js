@@ -1,11 +1,11 @@
 <template>
   <div class="banner">
-    <div >
-      <transition-group name="fade-img" mode="out-in">
-        <img class="fade-img" v-for="(page, index) in pages" :key="index" :src="page" v-show="currentPage === index" />
-      </transition-group>
-      <div :class="[{'currentSpot': index === currentPage},'spot']" v-for="(value, index) in pages.length" :key="pages.length[index]" @click="toPage(index)">{{value}}</div>
-    </div>
+    <transition-group name="fade-img" mode="out-in">
+      <img class="fade-img" v-for="(page, index) in pages" :key="index" :src="page" v-show="currentPage === index" />
+    </transition-group>
+    <ul class="spotList">
+      <li :class="[{'currentSpot': index === currentPage},'spot']" v-for="(value, index) in pages.length" :key="pages.length[index]" @click="toPage(index)">{{value}}</li>
+    </ul>
   </div>
 </template>
 <script src="./banner.js"></script>
