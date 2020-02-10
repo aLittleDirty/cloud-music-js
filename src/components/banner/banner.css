@@ -1,0 +1,11 @@
+.fade-img-enter-active, .fade-img-leave-active {
+  transition: opacity 1s;
+}
+
+.fade-img-enter, .fade-img-leave-to {
+  opacity: 0;
+}
+
+.fade-img {
+  position: absolute;
+}
