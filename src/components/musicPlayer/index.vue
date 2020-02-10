@@ -1,5 +1,6 @@
 <template>
-  <div class = "music-player">
+  <div :class="['music-player',{'lock-in': isLock}]">
+    <button :class="['lock',{'lock-in': isLock}]" @click="isLock = !isLock"></button>
     <audio ref="audio"
       @timeupdate="updateTime"
       @canplay="initDuration"

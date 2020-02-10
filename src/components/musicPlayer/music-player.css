@@ -164,3 +164,28 @@ input[type=range]:focus {
 }
 
 /* 唱片 */
+
+/* 锁定位置 */
+ .music-player {
+   bottom: 0;
+   position: absolute;
+   transition: bottom 2s linear ;
+ }
+
+ .music-player:hover {
+  bottom: 50px;
+ }
+
+ .music-player.lock-in {
+  bottom: 50px;
+ }
+
+ .lock {
+  background-color: rgba(192, 180, 180, 0.1);
+  background-image: url('../../assets/解锁.png');
+ }
+
+ .lock.lock-in {
+  background-color: rgba(192, 180, 180, 0.1);
+  background-image: url('../../assets/锁.png');
+ }

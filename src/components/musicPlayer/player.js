@@ -18,7 +18,8 @@ export default {
       musicUrl: '',
       currentMusicId: 0,
       absenceNext: false,
-      absencePrev: false
+      absencePrev: false,
+      isLock: false
     }
   },
   filters: {
