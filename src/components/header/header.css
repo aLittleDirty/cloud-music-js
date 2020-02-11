@@ -1,20 +1,74 @@
+/* 去除router-link中的字体默认颜色和下划线 */
 .header, a {
-  color: rgba(51, 51, 51, 1);
-  font-size: 18px;
+  color: rgba(204, 204, 204, 1);
+  font-size: 14px;
   text-decoration: none;
 }
+
 router-link-active {
   text-decoration: none;
 }
 
+li {
+  list-style: none;
+}
+
 .header {
-  margin: 10px;
+  background-color: rgba(51, 51, 51, 1);
+  color: rgba(204, 204, 204, 1);
+}
+
+/* 垂直居中， 水平居中 */
+.logo, .billboard, .my-music, .login {
+  text-align: center;
+  height: 60px;
+  line-height: 60px;
+}
+
+.logo, .billboard, .my-music {
+  float: left;
+}
+
+.logo {
+  width: 200px;
+}
+
+.logo img {
+  width: 50px;
+  height: 50px;
+  margin: 5px 10px;
+  border-radius: 10px;
+  float: left;
+}
+
+.billboard, .my-music {
+  width: 80px;
+  cursor: pointer;
+}
+
+.login {
+  float: right;
+}
+
+.focus {
+  background-color: rgba(0, 0, 0, 1);
+}
+
+.focus::after {
+  content: "";
+  position: relative;
+  left: -18px;
+  top: 12px;
+  border-top: 6px solid transparent;
+  border-bottom: 8px solid rgba(193, 13, 12, 1);
+  border-right: 6px solid transparent;
+  border-left: 6px solid transparent;
 }
 
 .header::after {
   display: block;
   content: '';
-  height: 2px;
-  margin:2px;
+  clear: both;
+  height: 5px;
   background: rgba(193, 13, 12, 1)
 }
