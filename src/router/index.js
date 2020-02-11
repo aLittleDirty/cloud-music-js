@@ -10,19 +10,19 @@ const routes = [
     path: '/',
     name: 'billboard',
     component: Billboard,
-    meta: { title: '' }
+    meta: { title: '排行榜' }
   },
   {
     path: '/musicList',
     name: 'musicList',
     component: MusicList,
-    meta: { title: '/榜单详情' }
+    meta: { title: '音乐列表' }
   },
   {
     path: '/Lyric',
     name: 'lyric',
     component: Lyric,
-    meta: { title: '/歌曲详情' }
+    meta: { title: '歌词' }
   }
 ]
 
