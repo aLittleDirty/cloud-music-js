@@ -4,6 +4,7 @@
       <img src="../../assets/loading.png"/>
     </div>
     <div v-else class="loaded" key="loaded">
+      <Paging :pages="pagesNum" :currentPage="currentPage" @setPage="gotoPage"/>
       <Banner/>
       <ul>
         <li v-for="(item, index) in lists" :key="index">
@@ -13,7 +14,6 @@
           </router-link>
         </li>
       </ul>
-      <Paging class="paging" :pages="pagesNum" :currentPage="currentPage" @setPage="gotoPage"/>
     </div>
   </div>
 </template>

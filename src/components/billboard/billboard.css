@@ -47,8 +47,3 @@
 .billboardName:hover {
   color: rgba(144, 0, 0, 1);
 }
-
-.paging {
-  position: absolute;
-  bottom: 0;
-}
