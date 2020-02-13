@@ -4,7 +4,6 @@
     <Banner/>
     <router-view/>
     <MusicPlayer/>
-    <Login/>
   </div>
 </template>
 <script src="./app.js">
