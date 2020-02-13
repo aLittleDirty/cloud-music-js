@@ -27,10 +27,9 @@ export default {
   },
   mounted () {
     getLogStatus().then((user) => {
-      // 这里和预期不符啊, 每次返回的状态码都是301...
       this.isLogin = user.isLogin
       if (user.isLogin) {
-        this.userName = user.nickname
+        this.userName = user.userName
         this.userIcon = user.userIcon
       }
     })
