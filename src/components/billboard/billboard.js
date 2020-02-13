@@ -1,10 +1,12 @@
 import { Billboard } from '../../model/billboard.js'
 import { getBillboard } from '../../api/music-api.js'
 import { localGet, localSet, initDataBase } from '../../util/repository.js'
+import Banner from '../banner/index.vue'
 import Paging from '../paging/index.vue'
 export default {
   name: 'billboard',
   components: {
+    Banner,
     Paging
   },
   data () {

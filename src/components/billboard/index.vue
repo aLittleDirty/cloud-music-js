@@ -4,6 +4,7 @@
       <img src="../../assets/loading.png"/>
     </div>
     <div v-else class="loaded" key="loaded">
+      <Banner/>
       <ul>
         <li v-for="(item, index) in lists" :key="index">
           <router-link :to="{ path: '/musicList', query: {id:item.id}}">
