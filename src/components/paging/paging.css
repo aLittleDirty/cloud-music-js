@@ -1,15 +1,33 @@
-.first, .prev, .next, .last {
+.paging {
+  background-color: rgba(193, 13, 12, 1);
+  display: flex;
+  justify-content: center;
+}
+
+/* 清除按钮默认样式 */
+.first, .prev, .next, .last, .page-number {
   outline: none;
   background: transparent;
   border: 0;
+  color: rgba(204, 204, 204, 1);
 }
 
-.icon {
-  outline: none;
-  background: transparent;
-  border: 1px solid rgba(144, 144, 144, 1)
+.first, .prev, .next, .last {
+  padding: 2px 6px;
+  margin: 8px 7px;
+  border-radius: 10px;
+  font-size: 12px;
+  text-decoration: underline;
 }
 
-.icon.highLight {
-  background-color: rgba(0, 0, 255, 0.5)
+.page-number {
+  width: 30px;
+  height: 20px;
+  border-radius: 10px;
+  margin: 8px 10px;
 }
+
+.page-number.highLight {
+  background-color: rgba(51, 51, 51, 0.5);
+}
+
