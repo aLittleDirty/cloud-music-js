@@ -1,49 +1,43 @@
-.loading img{
-  width: 200px;
-  height: 200px;
+.loading img {
   position: absolute;
   left: 0;
   right: 0;
   top:0;
   bottom: 0;
   margin:auto;
-}
-
-.loaded ul{
-  display: flex;
-  justify-content: flex-start;
-  flex-wrap: wrap;
-}
-
-.loaded li {
-  list-style: none;
-  margin: 10px 20px;
-  position: relative;
-}
-
-.loaded li::before {
-  content: '';
-  display: block;
-  width: 208px;
-  height: 208px;
-  border: 2px outset rgba(200, 200, 200, 0.8);
-  position: absolute;
-  top: -6px;
-  left: -6px;
-  z-index: -1;
-}
-
-.billboardImg {
   width: 200px;
   height: 200px;
 }
 
-.billboardName {
-  font-size:14px;
-  color: black;
-  text-indent: 8px;
+.billboardList {
+  display: flex;
+  justify-content: center;
+  list-style: none;
 }
 
-.billboardName:hover {
-  color: rgba(144, 0, 0, 1);
+.billboardDetail {
+  position: relative;
+  margin: 20px;
+  width: 160px;
+  height: 160px;
+  border: 2px outset rgba(200, 200, 200, 0.8);
 }
+
+.billboardDetail img {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 150px;
+  height: 150px;
+}
+
+.billboardDetail p {
+  position: absolute;
+  top: 165px;
+  font-size:14px;
+  color: black;
+}
+
