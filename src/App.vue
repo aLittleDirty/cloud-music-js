@@ -5,7 +5,5 @@
     <MusicPlayer/>
   </div>
 </template>
-<script src="./app.js">
-</script>
-<style>
-</style>
+<script src="./app.js"></script>
+<style src="./app.css" scoped></style>

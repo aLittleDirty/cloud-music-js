@@ -19,7 +19,7 @@ export default {
       currentMusicId: 0,
       absenceNext: false,
       absencePrev: false,
-      isLock: false
+      isLock: true
     }
   },
   filters: {
