@@ -4,6 +4,7 @@
       <img src="../../assets/loading.png"/>
     </div>
     <div class="loaded" v-else>
+      <Paging :pages="totalPage" :currentPage="currentPage" @setPage="gotoPage"/>
       <table class="loaded, table">
         <thead class="thead">
           <tr>
@@ -22,7 +23,6 @@
           </tr>
         </tbody>
       </table>
-      <Paging :pages="totalPage" :currentPage="currentPage" @setPage="gotoPage"/>
     </div>
   </div>
 </template>
