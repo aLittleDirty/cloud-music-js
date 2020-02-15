@@ -1,5 +1,5 @@
 /* 清除按钮样式 */
-.unlogIcon, .logout button, .dialog-handle button, .login-btn {
+.unlog-icon, .logout button, .dialog-handle button, .login-btn {
   outline: none;
   background-color: transparent;
   border: 0;
@@ -7,11 +7,11 @@
 }
 
 /* 垂直居中 */
-.unlogIcon {
+.unlog-icon {
   line-height: 40px;
 }
 
-.unlogIcon:hover {
+.unlog-icon:hover {
   text-decoration: underline;
 }
 
