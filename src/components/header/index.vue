@@ -8,7 +8,7 @@
       <li :class="[{'focus': focusOption === 1}, 'billboard']" @click="focusOption = 1">
         <router-link to = "/">{{currentPage}}</router-link>
       </li>
-      <li :class="[{'focus': focusOption === 2}, 'my-music']" @click="focusOption = 2">我的音乐</li>
+      <li :class="[{'focus': focusOption === 2}, 'private-music']" @click="focusOption = 2">我的音乐</li>
       <li class="login">
         <Login/>
       </li>

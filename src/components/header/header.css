@@ -20,13 +20,13 @@ li {
 }
 
 /* 垂直居中， 水平居中 */
-.logo, .billboard, .my-music {
+.logo, .billboard, .private-music {
   text-align: center;
   height: 60px;
   line-height: 60px;
 }
 
-.logo, .billboard, .my-music {
+.logo, .billboard, .private-music {
   float: left;
 }
 
@@ -42,7 +42,7 @@ li {
   float: left;
 }
 
-.billboard, .my-music {
+.billboard, .private-music {
   width: 80px;
   cursor: pointer;
 }
