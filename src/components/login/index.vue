@@ -15,7 +15,7 @@
       </ul>
     </div>
     <div class="dialog" v-show="showDialog">
-      <div class="dialogHandle">
+      <div class="dialog-handle">
         <span>手机号登录</span>
         <button @click="showDialog = false">X</button>
       </div>

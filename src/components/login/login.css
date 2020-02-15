@@ -1,5 +1,5 @@
 /* 清除按钮样式 */
-.unlogIcon, .logout button, .dialogHandle button, .login-btn {
+.unlogIcon, .logout button, .dialog-handle button, .login-btn {
   outline: none;
   background-color: transparent;
   border: 0;
@@ -94,7 +94,7 @@
   z-index: 2;
 }
 
-.dialogHandle {
+.dialog-handle {
   width: 100%;
   height: 40px;
   line-height: 40px;
@@ -102,11 +102,11 @@
   border-radius: 5px 5px 0 0;
 }
 
-.dialogHandle span {
+.dialog-handle span {
   margin: 10px;
 }
 
-.dialogHandle button {
+.dialog-handle button {
   float: right;
   height: 20px;
   margin: 10px;
