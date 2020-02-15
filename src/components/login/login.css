@@ -15,7 +15,7 @@
   text-decoration: underline;
 }
 
-.userMessage {
+.user-message {
   position: relative;
 }
 
@@ -52,7 +52,7 @@
   z-index: 2;
 }
 
-.userMessage:hover .user-menu {
+.user-message:hover .user-menu {
   z-index: 2;
   display: block;
 }
