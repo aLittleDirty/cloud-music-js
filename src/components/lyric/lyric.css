@@ -22,7 +22,7 @@
   background-size: cover;
 }
 
-.albumImage {
+.album-image {
   background: url('../../assets/唱片.jpg') no-repeat;
   background-size: 400px 400px;
   background-position: -50px -50px;
@@ -32,7 +32,7 @@
   position: relative;
 }
 
-.albumImage img {
+.album-image img {
   width: 180px;
   height: 180px;
   border-radius: 50%;

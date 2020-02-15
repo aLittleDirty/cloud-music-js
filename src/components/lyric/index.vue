@@ -4,7 +4,7 @@
       <img src="../../assets/loading.png"/>
     </div>
     <section v-else class="loaded" key="loaded">
-      <div  class="albumImage">
+      <div  class="album-image">
         <img :src="albumImg"/>
       </div>
       <div class="lyric-content">
