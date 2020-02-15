@@ -9,7 +9,7 @@
   height: 200px;
 }
 
-.billboardList {
+.billboard-list {
   display: flex;
   justify-content: center;
   list-style: none;

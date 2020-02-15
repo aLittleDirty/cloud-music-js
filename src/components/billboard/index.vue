@@ -6,7 +6,7 @@
     <div v-else class="loaded" key="loaded">
       <Paging :pages="pagesNum" :currentPage="currentPage" @setPage="gotoPage"/>
       <Banner/>
-      <ul class="billboardList">
+      <ul class="billboard-list">
         <li class="billboardDetail" v-for="(item, index) in lists" :key="index">
           <router-link :to="{ path: '/musicList', query: {id:item.id}}">
             <img :src="item.coverImg">
