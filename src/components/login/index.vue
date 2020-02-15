@@ -21,7 +21,7 @@
       </div>
       <input class="phone" type="number" v-model="userPhone" placeholder="请输入你的手机号"/>
       <input class="password" type="password" v-model="passWord" placeholder="请输入密码"/>
-      <button class="loginBtn" @click="login(userPhone, passWord)">登录</button>
+      <button class="login-btn" @click="login(userPhone, passWord)">登录</button>
     </div>
   </div>
 </template>
