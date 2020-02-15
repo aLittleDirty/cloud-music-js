@@ -15,7 +15,7 @@
   list-style: none;
 }
 
-.billboardDetail {
+.billboard-detail {
   position: relative;
   margin: 20px;
   width: 160px;
@@ -23,7 +23,7 @@
   border: 2px outset rgba(200, 200, 200, 0.8);
 }
 
-.billboardDetail img {
+.billboard-detail img {
   position: absolute;
   top: 0;
   bottom: 0;
@@ -34,7 +34,7 @@
   height: 95%;
 }
 
-.billboardDetail p {
+.billboard-detail p {
   position: absolute;
   top: 165px;
   font-size:14px;

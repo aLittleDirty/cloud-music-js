@@ -7,7 +7,7 @@
       <Paging :pages="pagesNum" :currentPage="currentPage" @setPage="gotoPage"/>
       <Banner/>
       <ul class="billboard-list">
-        <li class="billboardDetail" v-for="(item, index) in lists" :key="index">
+        <li class="billboard-detail" v-for="(item, index) in lists" :key="index">
           <router-link :to="{ path: '/musicList', query: {id:item.id}}">
             <img :src="item.coverImg">
             <p>{{item.name}}</p>
