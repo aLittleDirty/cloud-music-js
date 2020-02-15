@@ -24,7 +24,7 @@
   border-radius: 20px;
 }
 
-.userMenu {
+.user-menu {
   position: absolute;
   top: 50px;
   left: -20px;
@@ -39,7 +39,7 @@
   display: none;
 }
 
-.userMenu::before {
+.user-menu::before {
   position: absolute;
   top: -12px;
   left: 35px;
@@ -52,23 +52,23 @@
   z-index: 2;
 }
 
-.userMessage:hover .userMenu {
+.userMessage:hover .user-menu {
   z-index: 2;
   display: block;
 }
 
-.userMenu li {
+.user-menu li {
   height: 25px;
   width: 90px;
   line-height: 25px;
 }
 
-.userMenu li:nth-of-type(1) {
+.user-menu li:nth-of-type(1) {
   border-bottom: 1px solid rgba(50, 50, 50, 1);
 }
 
 
-.userMenu li:hover {
+.user-menu li:hover {
   background-color: rgba(79, 79, 79, 1);
 }
 

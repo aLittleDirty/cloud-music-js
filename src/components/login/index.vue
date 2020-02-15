@@ -3,7 +3,7 @@
     <button v-if="!isLogin" id="unlog" class="unlogIcon" @click="showDialog = true">登录</button>
     <div v-else class="userMessage">
       <img class="userIcon" :src="userIcon"/>
-      <ul class="userMenu">
+      <ul class="user-menu">
         <li class="user-detail">
           <img src="../../assets/用户.png"/>
           <span>{{userName}}</span>
