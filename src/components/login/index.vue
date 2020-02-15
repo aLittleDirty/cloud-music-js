@@ -2,7 +2,7 @@
   <div class="login">
     <button v-if="!isLogin" id="unlog" class="unlogIcon" @click="showDialog = true">登录</button>
     <div v-else class="userMessage">
-      <img class="userIcon" :src="userIcon"/>
+      <img class="user-icon" :src="userIcon"/>
       <ul class="user-menu">
         <li class="user-detail">
           <img src="../../assets/用户.png"/>
