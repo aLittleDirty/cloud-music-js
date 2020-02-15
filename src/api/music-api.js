@@ -1,10 +1,10 @@
-import { getHttp, httpPost } from '../util/http-util'
+import { httpGet, httpPost } from '../util/http-util'
 // import { localGet } from '../util/repository'
 
 export function getBillboard () {
   let path = '/toplist'
   let params = ''
-  let billBoardRawData = getHttp(path, params)
+  let billBoardRawData = httpGet(path, params)
   return billBoardRawData.then((result) => {
     let list = []
     for (let i = 0; i < result.list.length; i++) {
@@ -17,7 +17,7 @@ export function getBillboard () {
 export function getLyric (musicId) {
   let path = '/lyric'
   let params = `id=${musicId}`
-  let lyric = getHttp(path, params)
+  let lyric = httpGet(path, params)
   return lyric.then((result) => {
     return result.lrc.lyric
   })
@@ -59,7 +59,7 @@ function mergeMessage (p1, p2) {
 export function getMusicIds (billBoardId) {
   let path = '/playlist/detail'
   let params = `id=${billBoardId.toString()}`
-  let rawMusicIds = getHttp(path, params)
+  let rawMusicIds = httpGet(path, params)
   return rawMusicIds.then((result) => {
     let list = []
     for (let i in result.privileges) {
@@ -75,7 +75,7 @@ export function getMusicUrl (musicId) {
     musicId = musicId.join(',')
   }
   let params = `id=${musicId}`
-  let rawMusicUrls = getHttp(path, params)
+  let rawMusicUrls = httpGet(path, params)
   return rawMusicUrls.then((result) => {
     let list = []
     let rawMusicUrls = result.data
@@ -92,7 +92,7 @@ export function getMusicDetail (musicId) {
     musicId = musicId.join(',')
   }
   let params = `ids=${musicId}`
-  let rawMusicList = getHttp(path, params)
+  let rawMusicList = httpGet(path, params)
   return rawMusicList.then((result) => {
     let list = []
     let rawMusicList = result.songs
@@ -116,7 +116,7 @@ export function postUserMessage (userPhone, passWord) {
 export function getLogStatus () {
   let path = '/login/status'
   let params = `timestamp=${Date.now()}`
-  return getHttp(path, params).then((result) => {
+  return httpGet(path, params).then((result) => {
     if (result.code === 200) {
       return {
         isLogin: true,
@@ -136,7 +136,7 @@ export function postLogout () {
 }
 
 export function getBanner () {
-  return getHttp('/banner').then((result) => {
+  return httpGet('/banner').then((result) => {
     let banners = []
     for (let i = 0; i < result.banners.length; i++) {
       let imageUrl = result.banners[i].imageUrl

@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-export function getHttp (url, params = '') {
+export function httpGet (url, params = '') {
   return new Promise((resolve, reject) => {
     httpRequest(axios.get(`${url}?${params}`), resolve, reject)
   })
