@@ -4,7 +4,7 @@
     <div v-else class="userMessage">
       <img class="userIcon" :src="userIcon"/>
       <ul class="userMenu">
-        <li class="userDetail">
+        <li class="user-detail">
           <img src="../../assets/用户.png"/>
           <span>{{userName}}</span>
         </li>
