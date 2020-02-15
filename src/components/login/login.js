@@ -7,7 +7,7 @@ export default {
       userName: '',
       userPhone: '',
       passWord: '',
-      showLoginBox: false,
+      showDialog: false,
       isLogin: false
     }
   },
@@ -17,7 +17,7 @@ export default {
         this.userIcon = user.userIcon
         this.userName = user.userName
         this.isLogin = true
-        this.showLoginBox = false
+        this.showDialog = false
       })
     },
     logout () {
