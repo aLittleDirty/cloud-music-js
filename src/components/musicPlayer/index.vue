@@ -19,7 +19,7 @@
     </div>
     <div class="controllers">
       <button :class="[{ disable: absencePrev }, 'controller-prev']" @click="prev">上一首</button>
-      <button :class="[{ onPlay: playing }, 'controller-switch']" @click="swap">暂停 / 播放</button>
+      <button :class="[{ play: playing }, 'controller-status']" @click="swap">暂停 / 播放</button>
       <button :class="[{ disable: absenceNext }, 'controller-next']" @click="next">下一首</button>
     </div>
     <button class="volume">音量
