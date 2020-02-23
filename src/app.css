@@ -2,3 +2,10 @@
   position: fixed;
   bottom: -35px;
 }
+
+/* 解决底部fixed定位导致main的部分内容被遮挡的问题 */
+.main::after {
+  display: block;
+  content: '';
+  height: 50px;
+}
