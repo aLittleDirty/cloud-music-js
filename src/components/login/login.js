@@ -1,4 +1,5 @@
 import { getLogStatus, postUserMessage, postLogout } from '../../api/music-api.js'
+import { localSet, localRemove } from '../../util/repository.js'
 export default {
   name: 'login',
   data () {
@@ -18,11 +19,13 @@ export default {
         this.userName = user.userName
         this.isLogin = true
         this.showDialog = false
+        localSet('userId', user.userId)
       })
     },
     logout () {
       postLogout()
       this.isLogin = false
+      localRemove('userId')
     }
   },
   mounted () {
