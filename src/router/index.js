@@ -3,11 +3,14 @@ import VueRouter from 'vue-router'
 import Billboard from '../components/billboard/index.vue'
 import MusicList from '../components/musicList/index.vue'
 import Lyric from '../components/lyric/index.vue'
+import Personal from '../components/personal/index.vue'
+import PersonalCollection from '../components/personal-main-collection/index.vue'
+import PersonalPlaylist from '../components/personal-main-playlist/index.vue'
 Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/',
+    path: '/billboard',
     name: 'billboard',
     component: Billboard,
     meta: { title: '排行榜' }
@@ -23,6 +26,27 @@ const routes = [
     name: 'lyric',
     component: Lyric,
     meta: { title: '歌词' }
+  },
+  {
+    path: '/personal',
+    name: 'personal',
+    component: Personal,
+    children: [
+      {
+        path: '/personal-main-collection',
+        name: 'personal-main-collection',
+        component: PersonalCollection
+      },
+      {
+        path: '/personal-main-playlist',
+        name: 'personal-main-playlist',
+        component: PersonalPlaylist
+      }
+    ]
+  },
+  {
+    path: '/',
+    redirect: { name: 'billboard' }
   }
 ]
 
