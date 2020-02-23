@@ -13,6 +13,10 @@ export function localGet (key) {
   return JSON.parse(jsonData)
 }
 
+export function localRemove (key) {
+  storage.removeItem(key)
+}
+
 // indexedDB数据库
 // 创建数据库，并添加数据库表，设置主键和索引；设置requests,用于存放添加成功的回调函数
 export function initDataBase (dbName, objectStoreNameList, keyPathName, indexName) {
