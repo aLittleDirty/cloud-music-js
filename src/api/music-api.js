@@ -108,7 +108,7 @@ export function postUserMessage (userPhone, passWord) {
     let path = '/login/cellphone'
     let params = `phone=${userPhone}&password=${passWord}`
     return httpPost(path, params).then((result) => {
-      return { userName: result.profile.nickname, userIcon: result.profile.avatarUrl }
+      return { userName: result.profile.nickname, userIcon: result.profile.avatarUrl, userId: result.profile.userId }
     })
   }
 }
@@ -144,4 +144,29 @@ export function getBanner () {
     }
     return banners
   })
+}
+
+export async function getPersonalOptionsCount () {
+  let data = await httpGet('/user/subcount')
+  return {
+    radiosCount: data.djRadioCount,
+    signersCount: data.artistCount,
+    createdPlaylistCount: data.createdPlaylistCount,
+    collectedPlaylistCount: data.subPlaylistCount
+  }
+}
+
+export async function getPersonalPlaylists (userId) {
+  let path = '/user/playlist'
+  let params = `uid=${userId}`
+  let data = await httpGet(path, params)
+  let { playlist } = data
+  let createdPlaylist = []
+  let collectedPlaylist = []
+  for (let i = 0; i < playlist.length; i++) {
+    let { coverImgUrl, id, name, trackCount, subscribed } = playlist[i]
+    let item = { albumImg: coverImgUrl, id: id, name: name, musicsCount: trackCount }
+    subscribed ? collectedPlaylist.push(item) : createdPlaylist.push(item)
+  }
+  return [ createdPlaylist, collectedPlaylist ]
 }
