@@ -4,7 +4,8 @@ import Billboard from '../components/billboard/index.vue'
 import MusicList from '../components/musicList/index.vue'
 import Lyric from '../components/lyric/index.vue'
 import Personal from '../components/personal/index.vue'
-import PersonalCollection from '../components/personal-main-collection/index.vue'
+import PersonalRadio from '../components/personal-main-radio/index.vue'
+import PersonalSinger from '../components/personal-main-singer/index.vue'
 import PersonalPlaylist from '../components/personal-main-playlist/index.vue'
 Vue.use(VueRouter)
 
@@ -33,9 +34,14 @@ const routes = [
     component: Personal,
     children: [
       {
-        path: '/personal-main-collection',
-        name: 'personal-main-collection',
-        component: PersonalCollection
+        path: '/personal-main-radio',
+        name: 'personal-main-radio',
+        component: PersonalRadio
+      },
+      {
+        path: '/personal-main-singer',
+        name: 'personal-main-singer',
+        component: PersonalSinger
       },
       {
         path: '/personal-main-playlist',
