@@ -180,3 +180,13 @@ export async function getPersonalRadio (url) {
   }
   return { radioCount: count, radios: radios }
 }
+
+export async function getPersonalSigner (url) {
+  let { count, data } = await httpGet(url)
+  let signers = []
+  for (let i = 0; i < data.length; i++) {
+    let { name, id, picUrl, albumSize, mvSize } = data[i]
+    signers.push({ signerName: name, signerId: id, signerIcon: picUrl, albumSize: albumSize, mvSize: mvSize })
+  }
+  return { singersCount: count, signers: signers }
+}
