@@ -170,3 +170,13 @@ export async function getPersonalPlaylists (userId) {
   }
   return [ createdPlaylist, collectedPlaylist ]
 }
+
+export async function getPersonalRadio (url) {
+  let { count, djRadios } = await httpGet(url)
+  let radios = []
+  for (let i = 0; i < djRadios.length; i++) {
+    let { dj: { nickname }, name, picUrl, id } = djRadios[i]
+    radios.push({ radioName: name, radioImg: picUrl, radioId: id, djName: nickname })
+  }
+  return { radioCount: count, radios: radios }
+}
