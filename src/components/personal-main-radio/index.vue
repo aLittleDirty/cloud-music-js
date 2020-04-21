@@ -10,5 +10,5 @@
     </ul>
   </div>
 </template>
-<script src="./personal-main-collection.js"></script>
-<style scoped src="./personal-main-collection.css"></style>
+<script src="./personal-main-radio.js"></script>
+<style scoped src="./personal-main-radio.css"></style>

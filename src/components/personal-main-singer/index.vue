@@ -10,5 +10,5 @@
     </ul>
   </div>
 </template>
-<script src="./personal-main-signer"></script>
-<style scoped src="personal-main-signer"></style>
+<script src="./personal-main-signer.js"></script>
+<style scoped src="./personal-main-signer.css"></style>
