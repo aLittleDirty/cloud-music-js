@@ -1,0 +1,28 @@
+.listDetail {
+  font-size: 10px;
+}
+
+h5 {
+  font-size: 12px;
+}
+
+li {
+  list-style: none;
+  padding: 5px 0;
+}
+
+li p {
+  margin: 5px 0;
+}
+
+.albumImg {
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+  float: left;
+}
+
+a {
+  color: rgba(0, 0, 0, 1);
+  text-decoration: none;
+}

@@ -8,8 +8,8 @@ export default {
     }
   },
   mounted () {
-    let { title, options } = this.selections
+    let { title, playlist } = this.selections
     this.title = title
-    this.options = options
+    this.options = playlist
   }
 }

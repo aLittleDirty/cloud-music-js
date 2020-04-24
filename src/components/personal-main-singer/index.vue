@@ -4,8 +4,8 @@
     <ul>
       <li v-for="(signer, index) in signers" :key="index">
         <img :src="signer.signerIcon"/>
-        <p>{{signer.signerName}}</p>
-        <P><span>{{signer.albumSize}}个专辑</span><span>{{signer.mvSize}}个MV</span></P>
+        <p class="singerName">{{signer.signerName}}</p>
+        <P class="singerDetail"><span>{{signer.albumSize}}个专辑</span><span>{{signer.mvSize}}个MV</span></P>
       </li>
     </ul>
   </div>

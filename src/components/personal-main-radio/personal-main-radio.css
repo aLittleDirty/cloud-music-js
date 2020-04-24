@@ -1,0 +1,18 @@
+.personal-main-collection {
+  width: 500px;
+}
+
+h1 {
+  font-size: 16px;
+}
+
+li {
+  list-style: none;
+}
+
+li img {
+  width: 80px;
+  height: 80px;
+  padding-right: 20px;
+  float: left;
+}

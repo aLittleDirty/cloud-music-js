@@ -5,7 +5,7 @@
       <li v-for="(radio, index) in radios" :key="index">
         <img :src="radio.radioImg"/>
         <p>{{radio.radioName}}</p>
-        <p>by {{radio.nickName}}</p>
+        <p>by {{radio.djName}}</p>
       </li>
     </ul>
   </div>
