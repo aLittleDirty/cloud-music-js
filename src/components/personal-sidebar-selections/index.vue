@@ -7,7 +7,6 @@
           <img class="albumImg" :src="playlist.albumImg"/>
           <p>{{playlist.name}}</p>
           <p>{{playlist.musicsCount}}首</p>
-          <p>{{playlist.id}}</p>
         </router-link>
       </li>
     </ul>

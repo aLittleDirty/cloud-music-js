@@ -31,11 +31,6 @@ export function getMusicMessageList (musicIds) {
 }
 
 export function getMusicMessage (musicId) {
-  // if (!Array.isArray(musicId) && localGet(musicId)) {
-  //   let a = localGet(musicId)
-  //   return new Promise(a)
-  // }
-
   let musicDetail = getMusicDetail(musicId)
   let musicUrl = getMusicUrl(musicId)
   return mergeMessage(musicDetail, musicUrl).then((result) => {
