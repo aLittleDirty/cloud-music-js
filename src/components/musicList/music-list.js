@@ -23,6 +23,9 @@ export default {
   watch: {
     currentPage () {
       this.getData()
+    },
+    '$route.query.id' () {
+      this.getData()
     }
   },
   methods: {
